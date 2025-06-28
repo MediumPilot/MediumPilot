@@ -1,29 +1,76 @@
-import { useState } from "react";
+// src/App.jsx
+import React, { useEffect, useState } from "react";
+import {
+  initializeApp
+} from "firebase/app";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signOut
+} from "firebase/auth";
+
+// 1. Initialize Firebase (env variables in .env.local)
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 export default function App() {
-  // 1. State for the three inputs
+  const [user, setUser] = useState(null);
   const [rssUrl, setRssUrl] = useState("");
   const [liToken, setLiToken] = useState("");
   const [liActor, setLiActor] = useState("");
-
-  // 2. State for feedback messages
   const [status, setStatus] = useState(null);
+  const [error, setError] = useState(null);
 
-  // 3. Handle form submission
+  // 2. Listen for auth changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          uid: firebaseUser.uid,
+          name: firebaseUser.displayName || firebaseUser.email
+        });
+        // Track login in backend
+        fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ uid: firebaseUser.uid })
+        }).catch(console.error);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // 3. Sign-in & Sign-out handlers
+  const handleGoogleSignIn = () =>
+    signInWithPopup(auth, googleProvider).catch((e) => setError(e.message));
+  const handleSignOut = () =>
+    signOut(auth).catch((e) => setError(e.message));
+
+  // 4. Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rssUrl, liToken, liActor }),
+        body: JSON.stringify({ rssUrl, liToken, liActor, uid: user.uid })
       });
-
       if (!res.ok) throw new Error(`Error ${res.status}`);
       const data = await res.json();
-
       setStatus(`✅ All set! Your userId is ${data.userId}`);
     } catch (err) {
       console.error(err);
@@ -31,71 +78,91 @@ export default function App() {
     }
   };
 
+  // 5. Render login screen if not authenticated
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
+          <h1 className="text-2xl font-bold mb-4">Welcome to MediumPilot</h1>
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full mb-3 py-3 bg-red-500 text-white rounded-lg"
+          >
+            Sign in with Google
+          </button>
+          {error && <p className="mt-4 text-red-500">{error}</p>}
+        </div>
+      </div>
+    );
+  }
+
+  // 6. Authenticated: show form
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
-      >
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          MediumPilot
-        </h1>
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">MediumPilot</h1>
+          <button onClick={handleSignOut} className="text-red-500">
+            Sign Out
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          {/* RSS URL */}
+          <label className="block mb-2 font-medium" htmlFor="rss">
+            Medium RSS URL
+          </label>
+          <input
+            id="rss"
+            type="url"
+            required
+            value={rssUrl}
+            onChange={(e) => setRssUrl(e.target.value)}
+            placeholder="https://api.rss.example"
+            className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
 
-        {/* RSS URL */}
-        <label className="block mb-2 font-medium" htmlFor="rss">
-          Medium RSS URL
-        </label>
-        <input
-          id="rss"
-          type="url"
-          required
-          value={rssUrl}
-          onChange={(e) => setRssUrl(e.target.value)}
-          placeholder="https://api.rss.example"
-          className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
+          {/* LinkedIn Token */}
+          <label className="block mb-2 font-medium" htmlFor="token">
+            LinkedIn Access Token
+          </label>
+          <input
+            id="token"
+            type="text"
+            required
+            value={liToken}
+            onChange={(e) => setLiToken(e.target.value)}
+            placeholder="Bearer abc123..."
+            className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
 
-        {/* LinkedIn Token */}
-        <label className="block mb-2 font-medium" htmlFor="token">
-          LinkedIn Access Token
-        </label>
-        <input
-          id="token"
-          type="text"
-          required
-          value={liToken}
-          onChange={(e) => setLiToken(e.target.value)}
-          placeholder="Bearer abc123..."
-          className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
+          {/* LinkedIn Actor URN */}
+          <label className="block mb-2 font-medium" htmlFor="actor">
+            LinkedIn Actor URN
+          </label>
+          <input
+            id="actor"
+            type="text"
+            required
+            value={liActor}
+            onChange={(e) => setLiActor(e.target.value)}
+            placeholder="urn:li:person:XXXXXX"
+            className="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
 
-        {/* LinkedIn Actor URN */}
-        <label className="block mb-2 font-medium" htmlFor="actor">
-          LinkedIn Actor URN
-        </label>
-        <input
-          id="actor"
-          type="text"
-          required
-          value={liActor}
-          onChange={(e) => setLiActor(e.target.value)}
-          placeholder="urn:li:person:XXXXXX"
-          className="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-indigo-600 transition"
+          >
+            {status === "loading" ? "Saving..." : "Enable Auto‑Share"}
+          </button>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-indigo-600 transition"
-        >
-          {status === "loading" ? "Saving..." : "Enable Auto‑Share"}
-        </button>
-
-        {/* Status Message */}
-        {status && status !== "loading" && (
-          <p className="mt-4 text-center">{status}</p>
-        )}
-      </form>
+          {/* Status Message */}
+          {status && status !== "loading" && (
+            <p className="mt-4 text-center">{status}</p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
