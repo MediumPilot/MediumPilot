@@ -86,8 +86,6 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 
 This project is licensed under the MIT [License](LICENSE) - see the LICENSE file for details.
 
-https://img.shields.io/badge/License-MIT-yellow.svg
-
 ### ✍️ Author
 
 Made with ❤️ by Prajwal M D
