@@ -1,0 +1,20 @@
+name: Trigger MediumPilot Share
+
+# Runs every 30 minutes
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-share:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send POST to Vercel share endpoint
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST https://mediumpilot.vercel.app/api/share)
+          echo "Vercel responded with HTTP status $RESPONSE"
+          if [[ "$RESPONSE" -ne 200 ]]; then
+            echo "Error: share endpoint returned $RESPONSE" >&2
+            exit 1
+          fi
