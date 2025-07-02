@@ -6,7 +6,7 @@ import { kv } from "./kv.js";
 // 1. Initialize RSS parser
 const parser = new Parser();
 
-// 2. Category/weekday helpers (copy from share.py logic)
+// 2. Category/weekday helpers 
 const CATEGORY_KEYWORDS = {
   AI:          ["ai","machine learning","deep learning"],
   Programming: ["programming","code","development","python","java","c "],
@@ -85,9 +85,9 @@ export default async function handler(req, res) {
       const entry = feed.items[0];
       if (!entry || entry.link === cfg.lastUrl) continue;
 
-      // 4.3 Extract excerpt & hashtags & image
+      // 4.6 Extract excerpt & hashtags & image
       const excerpt = (entry.contentSnippet || entry.content || '').split("\n")[0].slice(0,200);
-      const hashtags = (entry.categories||[]).slice(0,3).map(t=>"#"+t.replace(/\s+/g,'').replace(/[^\w]/g,''));
+      const hashtags = (entry.categories||[]).slice(0,6).map(t=>"#"+t.replace(/\s+/g,'').replace(/[^\w]/g,''));
       const coverImage = entry.enclosure?.url || null;
 
       const postText = composePost(entry.title, entry.link, excerpt, hashtags);
