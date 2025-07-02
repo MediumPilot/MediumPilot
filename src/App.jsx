@@ -9,7 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-// 1. Initialize Firebase (env variables in .env.local)
+// 1. Initialize Firebase (env variables in .env)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
