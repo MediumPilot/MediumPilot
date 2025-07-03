@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
+import logo from "./assets/mediumpilot.svg";
 import {
   getAuth,
   signInWithPopup,
@@ -81,7 +82,7 @@ export default function App() {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
         <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
           <img
-            src="src\assets\mediumpilot.svg"
+            src={logo}
             alt="MediumPilot Logo"
             className="w-24 h-auto mx-auto mb-6"
           />
@@ -105,7 +106,7 @@ export default function App() {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex items-center mb-4 sm:mb-0">
             <img
-              src="src\assets\mediumpilot.svg"
+              src={logo}
               alt="MediumPilot Logo"
               className="w-16 h-auto mr-3"
             />
