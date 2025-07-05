@@ -1,5 +1,5 @@
 // api/kv.js
-import { Redis } from "@upstash/redis";
+import { Redis } from '@upstash/redis';
 
 // Vercel injects process.env for serverless functions.
 // Locally, .env.local must contain these two keys.
