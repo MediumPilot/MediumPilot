@@ -1,14 +1,14 @@
 // src/App.jsx
-import React, { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import logo from "./assets/mediumpilot.svg";
+import React, { useEffect, useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import logo from './assets/mediumpilot.svg';
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
-} from "firebase/auth";
+} from 'firebase/auth';
 
 // 1. Initialize Firebase (env variables in .env)
 const firebaseConfig = {
@@ -25,9 +25,9 @@ const googleProvider = new GoogleAuthProvider();
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [rssUrl, setRssUrl] = useState("");
-  const [liToken, setLiToken] = useState("");
-  const [liActor, setLiActor] = useState("");
+  const [rssUrl, setRssUrl] = useState('');
+  const [liToken, setLiToken] = useState('');
+  const [liActor, setLiActor] = useState('');
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
@@ -40,9 +40,9 @@ export default function App() {
           name: firebaseUser.displayName || firebaseUser.email,
         });
         // Track login in backend
-        fetch("/api/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ uid: firebaseUser.uid }),
         }).catch(console.error);
       } else {
@@ -60,11 +60,11 @@ export default function App() {
   // 4. Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("loading");
+    setStatus('loading');
     try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rssUrl, liToken, liActor, uid: user.uid }),
       });
       if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -72,7 +72,7 @@ export default function App() {
       setStatus(`✅ All set! Your userId is ${data.userId}`);
     } catch (err) {
       console.error(err);
-      setStatus("❌ Something went wrong. Check the console.");
+      setStatus('❌ Something went wrong. Check the console.');
     }
   };
 
@@ -173,11 +173,11 @@ export default function App() {
             type="submit"
             className="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-indigo-600 transition cursor-pointer"
           >
-            {status === "loading" ? "Saving..." : "Enable Auto‑Share"}
+            {status === 'loading' ? 'Saving...' : 'Enable Auto‑Share'}
           </button>
 
           {/* Status Message */}
-          {status && status !== "loading" && (
+          {status && status !== 'loading' && (
             <p className="mt-4 text-center text-gray-700">{status}</p>
           )}
         </form>
