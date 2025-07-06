@@ -1,27 +1,17 @@
 // src/App.jsx
 import React, { useEffect, useState } from 'react';
-import { initializeApp } from 'firebase/app';
 import logo from './assets/mediumpilot.svg';
 import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
-
-// 1. Initialize Firebase (env variables in .env)
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+import { auth, githubProvider, googleProvider } from './firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -30,6 +20,11 @@ export default function App() {
   const [liActor, setLiActor] = useState('');
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signInLoading, setSignInLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
+  const [githubLoading, setGithubLoading] = useState(false);
 
   // 2. Listen for auth changes
   useEffect(() => {
@@ -52,10 +47,133 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  // 3. Sign-in & Sign-out handlers
-  const handleGoogleSignIn = () =>
-    signInWithPopup(auth, googleProvider).catch((e) => setError(e.message));
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const email = result.user.email;
+
+      if (email) {
+        const methods = await fetchSignInMethodsForEmail(auth, email);
+
+        if (methods.length > 0 && !methods.includes('google.com')) {
+          const provider =
+            methods[0] === 'password'
+              ? 'Email/Password'
+              : methods[0] === 'github.com'
+                ? 'GitHub'
+                : methods[0];
+
+          toast.error(
+            `Account already exists with ${provider}. Please use that method to sign in.`
+          );
+          await signOut(auth);
+          return;
+        }
+      }
+    } catch (e) {
+      toast.error(e.message);
+    }
+  };
   const handleSignOut = () => signOut(auth).catch((e) => setError(e.message));
+
+  const handleEmailSignIn = async () => {
+    setSignInLoading(true);
+    try {
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+
+      // Check if account exists with a different provider
+      if (methods.length && !methods.includes('password')) {
+        const provider = methods[0] === 'google.com' ? 'Google' : methods[0];
+        toast.error(
+          `Account exists with ${provider}. Please sign in with that instead.`
+        );
+        return;
+      }
+
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      toast.error(e.message);
+    } finally {
+      setSignInLoading(false);
+      setEmail('');
+      setPassword('');
+    }
+  };
+
+  const handleEmailRegister = async () => {
+    setRegisterLoading(true);
+    try {
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+
+      if (methods.length > 0) {
+        const provider =
+          methods[0] === 'google.com'
+            ? 'Google'
+            : methods[0] === 'github.com'
+              ? 'GitHub'
+              : methods[0];
+        toast.error(
+          `Account already exists with ${provider}. Use that to sign in.`
+        );
+        return;
+      }
+
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      toast.error(e.message);
+    } finally {
+      setRegisterLoading(false);
+      setEmail('');
+      setPassword('');
+    }
+  };
+
+  const handleGithubSignIn = async () => {
+    setGithubLoading(true);
+    try {
+      await signInWithPopup(auth, githubProvider);
+    } catch (e) {
+      if (e.code === 'auth/account-exists-with-different-credential') {
+        const email = e.customData?.email;
+
+        if (!email) {
+          toast.error(
+            'Account exists with a different provider. Please sign in using the method you originally used.'
+          );
+          return;
+        }
+
+        try {
+          const methods = await fetchSignInMethodsForEmail(auth, email);
+
+          let providerName = 'another method';
+          if (methods.length > 0) {
+            if (methods[0] === 'password') {
+              providerName = 'Email & Password';
+            } else if (methods[0] === 'google.com') {
+              providerName = 'Google';
+            } else if (methods[0] === 'github.com') {
+              providerName = 'GitHub';
+            } else {
+              providerName = methods[0].replace('.com', '');
+            }
+          }
+
+          toast.error(
+            `Account already exists with ${providerName}. Please sign in with that method.`
+          );
+        } catch (fetchErr) {
+          toast.error('Failed to check sign-in method. Try another provider.');
+          console.error(fetchErr);
+        }
+      } else {
+        toast.error(e.message || 'Something went wrong during GitHub sign-in.');
+      }
+    } finally {
+      setGithubLoading(false);
+    }
+  };
 
   // 4. Form submission
   const handleSubmit = async (e) => {
@@ -79,23 +197,67 @@ export default function App() {
   // 5. Render login screen if not authenticated
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-        <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
-          <img
-            src={logo}
-            alt="MediumPilot Logo"
-            className="w-24 h-auto mx-auto mb-6"
-          />
-          <h1 className="text-2xl font-bold mb-4">Welcome to MediumPilot</h1>
-          <button
-            onClick={handleGoogleSignIn}
-            className="w-full mb-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition cursor-pointer"
-          >
-            Sign in with Google
-          </button>
-          {error && <p className="mt-4 text-red-500">{error}</p>}
+      <>
+        <ToastContainer position="top-center" />
+
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+          <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
+            <img
+              src={logo}
+              alt="MediumPilot Logo"
+              className="w-24 h-auto mx-auto mb-6"
+            />
+            <h1 className="text-2xl font-bold mb-4">Welcome to MediumPilot</h1>
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mb-2 w-full border rounded p-2"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mb-4 w-full border rounded p-2"
+            />
+            <button
+              onClick={handleEmailSignIn}
+              className="mb-2 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition cursor-pointer"
+              disabled={signInLoading}
+            >
+              {signInLoading ? 'Signing In...' : 'Sign In'}{' '}
+            </button>
+
+            <button
+              onClick={handleEmailRegister}
+              disabled={registerLoading}
+              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 mb-2 rounded-lg transition cursor-pointer"
+            >
+              {registerLoading ? 'Registering...' : 'Register'}
+            </button>
+
+            <button
+              onClick={handleGithubSignIn}
+              disabled={githubLoading}
+              className="w-full mb-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition cursor-pointer"
+            >
+              {githubLoading ? 'Signing in...' : 'Sign in with GitHub'}
+            </button>
+
+            <button
+              onClick={handleGoogleSignIn}
+              className="w-full mb-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition cursor-pointer"
+            >
+              Sign in with Google
+            </button>
+            {error && <p className="mt-4 text-red-500">{error}</p>}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
