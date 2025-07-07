@@ -82,7 +82,7 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 ## 👥 Contributors
 
 <a href="https://github.com/Prajwal18-MD/MediumPilot/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Prajwal18-MD/MediumPilot" />
+  <img src="https://contrib.rocks/image?repo=Prajwal18-MD/MediumPilot&refresh=true" />
 </a>
 
 ## 📄 License
