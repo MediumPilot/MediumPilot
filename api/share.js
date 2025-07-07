@@ -45,6 +45,15 @@ function detectCategory(title) {
   return 'General';
 }
 
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return hash;
+}
+
 function composePost(title, url, excerpt, hashtags) {
   const wd = new Date().getDay();
   const weekIntro = WEEKDAY_INTROS[wd] || 'Check out';
@@ -58,13 +67,11 @@ function composePost(title, url, excerpt, hashtags) {
   return text;
 }
 
-function hashCode(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return hash;
+// New helper: get first N words (strip HTML tags)
+function getFirstWords(text, maxWords = 200) {
+  const plain = text.replace(/<[^>]+>/g, '');
+  const words = plain.trim().split(/\s+/);
+  return words.slice(0, maxWords).join(' ');
 }
 
 // 4. Main handler
@@ -86,18 +93,18 @@ export default async function handler(req, res) {
       const entry = feed.items[0];
       if (!entry || entry.link === cfg.lastUrl) continue;
 
-      // 4.6 Extract excerpt & hashtags & image
-      const excerpt = (entry.contentSnippet || entry.content || '')
-        .split('\n')[0]
-        .slice(0, 200);
+      // 4.3 Extract excerpt & hashtags & image
+      const rawContent = entry.contentSnippet || entry.content || '';
+      const excerpt = getFirstWords(rawContent, 200);
       const hashtags = (entry.categories || [])
         .slice(0, 6)
         .map((t) => '#' + t.replace(/\s+/g, '').replace(/[^\w]/g, ''));
       const coverImage = entry.enclosure?.url || null;
 
+      // 4.4 Compose post text
       const postText = composePost(entry.title, entry.link, excerpt, hashtags);
 
-      // 4.4 Post to LinkedIn
+      // 4.5 Post to LinkedIn
       const payload = {
         author: cfg.liActor,
         lifecycleState: 'PUBLISHED',
@@ -113,8 +120,11 @@ export default async function handler(req, res) {
               : [{ status: 'READY', originalUrl: entry.link }],
           },
         },
-        visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' },
+        visibility: {
+          'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC',
+        },
       };
+
       await fetch('https://api.linkedin.com/v2/ugcPosts', {
         method: 'POST',
         headers: {
@@ -125,7 +135,7 @@ export default async function handler(req, res) {
         body: JSON.stringify(payload),
       });
 
-      // 4.5 Update lastUrl
+      // 4.6 Update lastUrl
       await kv.hset(`user:${uid}`, { lastUrl: entry.link });
     }
 
