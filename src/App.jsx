@@ -11,6 +11,8 @@ import {
 } from 'firebase/auth';
 import { auth, githubProvider, googleProvider } from './firebase';
 import { ToastContainer, toast } from 'react-toastify';
+import google from './assets/icons/google.png';
+import github from './assets/icons/github.png'
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
@@ -226,7 +228,7 @@ export default function App() {
             />
             <button
               onClick={handleEmailSignIn}
-              className="mb-2 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition cursor-pointer"
+              className="mb-2 w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white py-3 rounded-lg transition cursor-pointer shadow-sm"
               disabled={signInLoading}
             >
               {signInLoading ? 'Signing In...' : 'Sign In'}{' '}
@@ -235,7 +237,7 @@ export default function App() {
             <button
               onClick={handleEmailRegister}
               disabled={registerLoading}
-              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 mb-2 rounded-lg transition cursor-pointer"
+              className="w-full bg-green-500 hover:bg-green-600 font-semibold text-white py-3 mb-2 rounded-lg transition cursor-pointer shadow-sm"
             >
               {registerLoading ? 'Registering...' : 'Register'}
             </button>
@@ -243,16 +245,21 @@ export default function App() {
             <button
               onClick={handleGithubSignIn}
               disabled={githubLoading}
-              className="w-full mb-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition cursor-pointer"
+              className="flex justify-center items-center font-semibold gap-2 w-full mb-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition cursor-pointer shadow-sm"
             >
-              {githubLoading ? 'Signing in...' : 'Sign in with GitHub'}
+              <img className="w-7 max-w-md" src={github} alt="github_logo" />
+              <span>
+                {githubLoading ? 'Signing in...' : 'Sign in with GitHub'}
+              </span>
             </button>
 
+            {/* Google login button  */}
             <button
               onClick={handleGoogleSignIn}
-              className="w-full mb-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition cursor-pointer"
+              className="flex items-center justify-center gap-2 w-full mb-3 py-2  text-black border rounded-lg transition hover:bg-blue-400 hover:border-blue-400 hover:text-white font-semibold cursor-pointer shadow-sm"
             >
-              Sign in with Google
+              <img className=" w-7 max-w-md" src={google} alt="google_logo" />
+              <span>Sign in with Google</span>
             </button>
             {error && <p className="mt-4 text-red-500">{error}</p>}
           </div>
