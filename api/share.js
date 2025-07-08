@@ -99,7 +99,7 @@ export default async function handler(req, res) {
       // 4.3 Extract excerpt & hashtags & image
       const rawContent =
         entry['content:encoded'] || entry.contentSnippet || entry.content || '';
-      const excerpt = getFirstWords(rawContent, 200);
+      const excerpt = getFirstWords(rawContent, 50);
       const hashtags = (entry.categories || [])
         .slice(0, 6)
         .map((t) => '#' + t.replace(/\s+/g, '').replace(/[^\w]/g, ''));
