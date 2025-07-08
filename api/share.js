@@ -9,12 +9,12 @@ const parser = new Parser();
 // 2. Category/weekday helpers
 const CATEGORY_KEYWORDS = {
   AI: ['ai', 'machine learning', 'deep learning'],
-  Programming: ['programming', 'code', 'development', 'python', 'java', 'c '],
+  Programming: ['programming', 'code', 'development', 'python', 'java', 'c'],
   'Web Dev': ['web', 'html', 'css', 'javascript', 'react', 'node'],
   Career: ['career', 'job', 'interview', 'resume'],
 };
 const WEEKDAY_INTROS = [
-  'Kickstart your week with',
+  'Kickstart your week with', // Monday
   'Take your Tuesday further with',
   'Midweek read:',
   'Almost Friday! Check out',
@@ -55,8 +55,10 @@ function hashCode(str) {
 }
 
 function composePost(title, url, excerpt, hashtags) {
+  // Fix weekday shift: JS getDay() 0=Sun…6=Sat, our WEEKDAY_INTROS is 0=Mon…6=Sun
   const wd = new Date().getDay();
-  const weekIntro = WEEKDAY_INTROS[wd] || 'Check out';
+  const shifted = (wd + 6) % 7;
+  const weekIntro = WEEKDAY_INTROS[shifted] || 'Check out';
   const cat = detectCategory(title);
   const catIntro = CATEGORY_INTROS[cat] || CATEGORY_INTROS['General'];
   const comment =
@@ -90,11 +92,13 @@ export default async function handler(req, res) {
 
       // 4.2 Fetch latest
       const feed = await parser.parseURL(cfg.rssUrl);
+      if (!feed.items || feed.items.length === 0) continue;
       const entry = feed.items[0];
       if (!entry || entry.link === cfg.lastUrl) continue;
 
       // 4.3 Extract excerpt & hashtags & image
-      const rawContent = entry.contentSnippet || entry.content || '';
+      const rawContent =
+        entry['content:encoded'] || entry.contentSnippet || entry.content || '';
       const excerpt = getFirstWords(rawContent, 200);
       const hashtags = (entry.categories || [])
         .slice(0, 6)
@@ -125,7 +129,7 @@ export default async function handler(req, res) {
         },
       };
 
-      await fetch('https://api.linkedin.com/v2/ugcPosts', {
+      const postRes = await fetch('https://api.linkedin.com/v2/ugcPosts', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${cfg.liToken}`,
@@ -134,6 +138,10 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify(payload),
       });
+      if (!postRes.ok) {
+        const body = await postRes.text();
+        throw new Error(`LinkedIn error ${postRes.status}: ${body}`);
+      }
 
       // 4.6 Update lastUrl
       await kv.hset(`user:${uid}`, { lastUrl: entry.link });
