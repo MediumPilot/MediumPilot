@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
  * Optionally set VITE_GITHUB_TOKEN (Vite) or REACT_APP_GITHUB_TOKEN (CRA)
  * to increase rate limit.
  */
-const GITHUB_OWNER = 'Prajwal18-MD'; 
-const GITHUB_REPO = 'MediumPilot'; 
+const GITHUB_OWNER = 'Prajwal18-MD';
+const GITHUB_REPO = 'MediumPilot';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -23,14 +23,20 @@ export default function Navbar() {
       try {
         // Support Vite token (import.meta.env) OR CRA token (process.env)
         const token =
-          (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GITHUB_TOKEN) ||
-          (typeof process !== 'undefined' && process.env.REACT_APP_GITHUB_TOKEN) ||
+          (typeof import.meta !== 'undefined' &&
+            import.meta.env &&
+            import.meta.env.VITE_GITHUB_TOKEN) ||
+          (typeof process !== 'undefined' &&
+            process.env.REACT_APP_GITHUB_TOKEN) ||
           null;
 
         const headers = token ? { Authorization: `token ${token}` } : {};
-        const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`, {
-          headers,
-        });
+        const res = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`,
+          {
+            headers,
+          }
+        );
         if (!res.ok) throw new Error('Failed to fetch GitHub repo');
         const json = await res.json();
         if (mounted) setStars(json.stargazers_count ?? 0);
@@ -107,7 +113,11 @@ export default function Navbar() {
               >
                 <span className="text-black">★ Star</span>
                 <span className="text-sm text-black/80">
-                  {loadingStars ? '…' : stars !== null ? stars.toLocaleString() : '—'}
+                  {loadingStars
+                    ? '…'
+                    : stars !== null
+                      ? stars.toLocaleString()
+                      : '—'}
                 </span>
               </a>
 
@@ -127,12 +137,32 @@ export default function Navbar() {
                 className="inline-flex items-center justify-center p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {open ? (
-                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 ) : (
-                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  <svg
+                    className="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   </svg>
                 )}
               </button>
@@ -169,7 +199,11 @@ export default function Navbar() {
               GitHub Repository
             </a>
 
-            <Link to="/signin" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-indigo-600 font-semibold hover:bg-gray-100">
+            <Link
+              to="/signin"
+              onClick={() => setOpen(false)}
+              className="block w-full text-left px-3 py-2 rounded-md text-indigo-600 font-semibold hover:bg-gray-100"
+            >
               Get Started
             </Link>
           </div>
