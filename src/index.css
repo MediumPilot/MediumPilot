@@ -13,6 +13,6 @@ body {
 
 /* subtle utility helper for glass effect fallback */
 .bg-glass {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(6px);
 }
