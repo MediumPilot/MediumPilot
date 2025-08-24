@@ -187,23 +187,23 @@ button[aria-label],
   align-items: center !important;
   justify-content: center !important;
   gap: 0.5rem !important;
-  
+
   /* Uniform sizing for professional look */
   padding: 0.75rem 1.5rem !important;
-  min-width: 120px !important;  
-  height: 44px !important; 
-  
+  min-width: 120px !important;
+  height: 44px !important;
+
   /* Typography */
   font-size: 0.95rem !important;
   font-weight: 600 !important;
   line-height: 1.2 !important;
-  
+
   /* Professional styling */
   border-radius: 8px !important;
   border: 1px solid rgba(17, 17, 35, 0.08) !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  
+
   /* Smooth transitions */
   transition: all 220ms cubic-bezier(0.2, 0.9, 0.3, 1) !important;
   transform: translateY(0) !important;
@@ -213,15 +213,19 @@ button[aria-label],
 /* Enhanced GitHub Star button styling */
 .lift-star.cta-pill {
   color: #111827 !important;
-  background: linear-gradient(135deg, #fde047 0%, #facc15 100%) !important; /* Better gold gradient */
-  box-shadow: 
+  background: linear-gradient(
+    135deg,
+    #fde047 0%,
+    #facc15 100%
+  ) !important; /* Better gold gradient */
+  box-shadow:
     0 4px 14px rgba(245, 158, 11, 0.25),
     0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
 .lift-star.cta-pill:hover {
   transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(245, 158, 11, 0.35),
     0 4px 12px rgba(0, 0, 0, 0.12) !important;
   filter: brightness(1.05) !important;
@@ -231,7 +235,7 @@ button[aria-label],
 .lift-getdemo.cta-pill {
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
   color: white !important;
-  box-shadow: 
+  box-shadow:
     0 4px 14px rgba(79, 70, 229, 0.25),
     0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
@@ -239,7 +243,7 @@ button[aria-label],
 .lift-getdemo.cta-pill:hover {
   transform: translateY(-4px) scale(1.02) !important;
   background: linear-gradient(135deg, #4338ca 0%, #5b21b6 100%) !important;
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(79, 70, 229, 0.35),
     0 4px 12px rgba(0, 0, 0, 0.12) !important;
   filter: brightness(1.05) !important;
