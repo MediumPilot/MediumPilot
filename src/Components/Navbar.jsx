@@ -1,12 +1,8 @@
 // src/components/Navbar.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/mediumpilot.svg';
 
-/**
- * Usage: make sure you have the repo values below replaced.
- * Optionally set VITE_GITHUB_TOKEN (Vite) or REACT_APP_GITHUB_TOKEN (CRA)
- * to increase rate limit.
- */
 const GITHUB_OWNER = 'Prajwal18-MD';
 const GITHUB_REPO = 'MediumPilot';
 
@@ -17,11 +13,9 @@ export default function Navbar() {
 
   useEffect(() => {
     let mounted = true;
-
     async function fetchStars() {
       setLoadingStars(true);
       try {
-        // Support Vite token (import.meta.env) OR CRA token (process.env)
         const token =
           (typeof import.meta !== 'undefined' &&
             import.meta.env &&
@@ -29,13 +23,10 @@ export default function Navbar() {
           (typeof process !== 'undefined' &&
             process.env.REACT_APP_GITHUB_TOKEN) ||
           null;
-
         const headers = token ? { Authorization: `token ${token}` } : {};
         const res = await fetch(
           `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`,
-          {
-            headers,
-          }
+          { headers }
         );
         if (!res.ok) throw new Error('Failed to fetch GitHub repo');
         const json = await res.json();
@@ -49,44 +40,74 @@ export default function Navbar() {
     }
 
     fetchStars();
-    const interval = setInterval(fetchStars, 1000 * 60 * 5); // refresh every 5 minutes (optional)
+    const id = setInterval(fetchStars, 1000 * 60 * 5);
     return () => {
       mounted = false;
-      clearInterval(interval);
+      clearInterval(id);
     };
   }, []);
 
-  // scroll helper (called from nav items)
-  const scrollToId = (id) => {
-    setOpen(false); // close mobile menu if open
+  // Escape closes mobile menu
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === 'Escape') setOpen(false);
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  // prevent background scroll when open
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+  }, [open]);
+
+  const scrollToId = useCallback((id) => {
+    setOpen(false);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   return (
     <header className="sticky top-0 z-50">
-      <nav className="w-full bg-white/60 backdrop-blur-lg border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Left: Brand */}
+      <nav className="w-full bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* LEFT - logo + title */}
             <div className="flex items-center gap-3">
-              <Link to="/" className="text-xl font-extrabold tracking-tight">
-                MediumPilot
+              <Link
+                to="/"
+                className="flex items-center gap-3"
+                onClick={() => setOpen(false)}
+              >
+                <img
+                  src={logo}
+                  alt="MediumPilot logo"
+                  className="w-10 h-auto md:w-12"
+                />
+                <span
+                  className="brand-title font-extrabold md:text-2xl"
+                  style={{ lineHeight: 1 }}
+                >
+                  MediumPilot
+                </span>
               </Link>
             </div>
 
-            {/* Center (desktop): links */}
-            <div className="hidden md:flex items-center gap-6">
+            {/* CENTER - md+ */}
+            <div className="hidden md:flex items-center gap-8">
               <button
                 onClick={() => scrollToId('features')}
-                className="text-sm font-medium hover:text-indigo-600 transition"
+                className="nav-link text-base font-medium text-slate-700"
+                aria-label="Go to Features"
               >
                 Features
               </button>
 
               <button
                 onClick={() => scrollToId('community')}
-                className="text-sm font-medium hover:text-indigo-600 transition"
+                className="nav-link text-base font-medium text-slate-700"
+                aria-label="Go to Community"
               >
                 Community
               </button>
@@ -95,24 +116,27 @@ export default function Navbar() {
                 href={`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm font-medium hover:text-indigo-600 transition"
+                className="nav-link text-base font-medium text-slate-700"
+                aria-label="GitHub"
               >
                 GitHub
               </a>
             </div>
 
-            {/* Right: Actions */}
+            {/* RIGHT actions */}
             <div className="flex items-center gap-3">
-              {/* Stars */}
+              {/* GitHub star pill: gold gradient (visible on sm+) + lift (orange glow) */}
               <a
                 href={`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`}
                 target="_blank"
                 rel="noreferrer"
-                className="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-lg font-semibold bg-gradient-to-r from-yellow-300 to-yellow-400 shadow-md"
-                title="Star us on GitHub"
+                className="hidden sm:inline-flex gap-2 lift-star bg-gradient-to-r from-yellow-300 to-yellow-400 shadow-md cta-pill"
+                title="Star on GitHub"
+                aria-label="Star on GitHub"
+                role="button"
               >
-                <span className="text-black">★ Star</span>
-                <span className="text-sm text-black/80">
+                <span style={{ fontWeight: 700 }}>★</span>
+                <span style={{ fontWeight: 600 }}>
                   {loadingStars
                     ? '…'
                     : stars !== null
@@ -121,24 +145,26 @@ export default function Navbar() {
                 </span>
               </a>
 
-              {/* Desktop CTA */}
+              {/* CTA Get Demo - indigo button with subtle 3D lift+blue glow */}
               <Link
                 to="/signin"
-                className="hidden md:inline-block px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
+                className="lift-getdemo cta-pill inline-flex items-center justify-center bg-indigo-600 text-white"
+                aria-label="Get Demo"
               >
-                Get Started
+                Get Demo
               </Link>
 
-              {/* Mobile hamburger */}
+              {/* Hamburger for mobile */}
               <button
                 onClick={() => setOpen((s) => !s)}
                 aria-expanded={open}
+                aria-controls="mobile-menu"
                 aria-label={open ? 'Close menu' : 'Open menu'}
-                className="inline-flex items-center justify-center p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="inline-flex items-center justify-center p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-300"
               >
                 {open ? (
                   <svg
-                    className="h-6 w-6"
+                    className="h-6 w-6 text-slate-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -152,7 +178,7 @@ export default function Navbar() {
                   </svg>
                 ) : (
                   <svg
-                    className="h-6 w-6"
+                    className="h-6 w-6 text-slate-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -170,22 +196,21 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* MOBILE PANEL */}
         <div
-          className={`md:hidden overflow-hidden transition-max-h duration-300 ${
-            open ? 'max-h-[360px]' : 'max-h-0'
-          }`}
+          className={`md:hidden bg-white border-t border-gray-200 transition-all duration-250 ${open ? 'max-h-[420px] py-4' : 'max-h-0 overflow-hidden'}`}
         >
-          <div className="px-4 pb-4 pt-2 space-y-2 bg-white">
+          <div className="px-4 space-y-3">
             <button
               onClick={() => scrollToId('features')}
-              className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-100"
+              className="w-full text-left text-base font-medium px-3 py-3 rounded-md nav-link-mobile"
             >
               Features
             </button>
+
             <button
               onClick={() => scrollToId('community')}
-              className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-100"
+              className="w-full text-left text-base font-medium px-3 py-3 rounded-md nav-link-mobile"
             >
               Community
             </button>
@@ -194,18 +219,20 @@ export default function Navbar() {
               href={`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`}
               target="_blank"
               rel="noreferrer"
-              className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-100"
+              className="block w-full text-left text-base font-medium px-3 py-3 rounded-md nav-link-mobile"
             >
-              GitHub Repository
+              GitHub
             </a>
 
-            <Link
-              to="/signin"
-              onClick={() => setOpen(false)}
-              className="block w-full text-left px-3 py-2 rounded-md text-indigo-600 font-semibold hover:bg-gray-100"
-            >
-              Get Started
-            </Link>
+            <div className="pt-2 border-t border-gray-100">
+              <Link
+                to="/signin"
+                onClick={() => setOpen(false)}
+                className="block w-full text-left text-base font-semibold px-3 py-3 rounded-md bg-indigo-600 text-white"
+              >
+                Get Demo
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

@@ -16,3 +16,168 @@ body {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(6px);
 }
+
+/* ---------- Brand / Title ---------- */
+/* Title gradient (indigo -> lighter center -> indigo) */
+.brand-title {
+  background: linear-gradient(90deg, #4f46e5 0%, #9aa1ff 50%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* ---------- Nav links (center) ---------- */
+/* Plain center nav links: hover to orange (no 3D) */
+.nav-link,
+.nav-link-mobile {
+  color: #0f172a; /* slate-800 */
+  transition:
+    color 180ms ease,
+    transform 120ms ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #f26b21; /* brand orange */
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Mobile/touch feedback */
+.nav-link-mobile:active,
+.nav-link-mobile:focus {
+  background: #fafafa;
+  color: #f26b21;
+}
+
+/* ---------- Lift / Glow (3D) ---------- */
+/* root-level default shadow used by lifts */
+:root {
+  --lift-shadow: 0 10px 30px rgba(17, 17, 35, 0.08);
+}
+
+/* Generic lift base (optional to reuse) */
+.lift-base {
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.2, 0.9, 0.3, 1),
+    filter 220ms;
+  transform: translateY(0);
+  box-shadow: var(--lift-shadow);
+  will-change: transform, box-shadow;
+}
+
+/* ---------- GitHub star pill (gold gradient) ---------- */
+/* Note: the component adds bg-gradient-to-r from-yellow-300 to-yellow-400 inline class */
+/* Ensure pill looks good and animates */
+.lift-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms;
+  transform: translateY(0);
+  box-shadow: var(--lift-shadow);
+  --star-glow: 0 18px 50px rgba(242, 107, 33, 0.12); /* orange glow */
+}
+
+/* hover / focus: lift + glow */
+.lift-star:hover,
+.lift-star:focus {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--star-glow), var(--lift-shadow);
+  filter: saturate(1.02);
+  outline: none;
+}
+
+/* active: press state */
+.lift-star:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17, 17, 35, 0.06);
+}
+
+/* accessible focus ring */
+.lift-star:focus-visible {
+  box-shadow:
+    0 12px 36px rgba(17, 17, 35, 0.08),
+    0 0 0 4px rgba(242, 107, 33, 0.1);
+}
+
+/* ---------- Get Demo lift (indigo glow) ---------- */
+.lift-getdemo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms;
+  transform: translateY(0);
+  box-shadow: var(--lift-shadow);
+  --get-glow: 0 20px 60px rgba(79, 70, 229, 0.12); /* indigo glow */
+}
+
+/* hover / focus - subtle 3D lift and indigo glow */
+.lift-getdemo:hover,
+.lift-getdemo:focus {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--get-glow), var(--lift-shadow);
+  filter: saturate(1.02);
+  outline: none;
+}
+
+/* active: press */
+.lift-getdemo:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17, 17, 35, 0.06);
+}
+
+/* focus-visible ring for lift-getdemo (subtle indigo) */
+.lift-getdemo:focus-visible {
+  box-shadow:
+    0 12px 36px rgba(17, 17, 35, 0.08),
+    0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* ---------- Misc / responsiveness ---------- */
+/* small mobile tweaks */
+@media (max-width: 767px) {
+  .nav-link {
+    font-size: 16px;
+  }
+}
+
+/* ensure interactive elements don't show native tap highlight */
+button[aria-label],
+.nav-link,
+.nav-link-mobile,
+.lift-getdemo,
+.lift-star {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* small visual safety for star pill when gradient is added inline
+   (keeps contrast readable and a light border to separate from background) */
+.lift-star {
+  border: 1px solid rgba(17, 17, 35, 0.06);
+  color: #111827; /* dark text on gold */
+}
