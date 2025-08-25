@@ -25,12 +25,14 @@ export default function Hero() {
               Explore Features
             </a>
 
-            <a
-              href="/signin"
-              className="px-5 py-3 rounded-lg border border-gray-300 hover:bg-gray-100 font-semibold"
+            
+            <Link
+                to="/signin"
+                className="px-5 py-3 rounded-lg border border-gray-300 hover:bg-gray-100 font-semibold"
+                aria-label="Get Demo"
             >
-              Get Demo
-            </a>
+                Get Demo
+            </Link>
           </div>
         </div>
 

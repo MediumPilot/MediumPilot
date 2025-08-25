@@ -9,8 +9,8 @@ import {
 } from 'firebase/auth';
 import { auth, githubProvider, googleProvider } from '../firebase';
 import { ToastContainer, toast } from 'react-toastify';
-import google from '../assets/icons/google.png';
-import github from '../assets/icons/github.png';
+import google from '../assets/icons/google.svg';
+import github from '../assets/icons/github.svg';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignIn() {

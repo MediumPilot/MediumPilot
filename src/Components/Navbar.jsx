@@ -152,7 +152,7 @@ export default function Navbar() {
               >
                 Get Demo
               </Link>
-
+ 
               {/* Hamburger for mobile */}
               <button
                 onClick={() => setOpen((s) => !s)}
