@@ -131,11 +131,9 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 className="hidden sm:inline-flex gap-2 lift-star bg-gradient-to-r from-yellow-300 to-yellow-400 shadow-md cta-pill"
-                title="Star on GitHub"
                 aria-label="Star on GitHub"
                 role="button"
               >
-                <span style={{ fontWeight: 700 }}>★</span>
                 <span style={{ fontWeight: 600 }}>
                   {loadingStars
                     ? '…'
@@ -143,6 +141,7 @@ export default function Navbar() {
                       ? stars.toLocaleString()
                       : '—'}
                 </span>
+                <span style={{ fontWeight: 700 }}>★ on Github</span>
               </a>
 
               {/* CTA Get Demo - indigo button with subtle 3D lift+blue glow */}
