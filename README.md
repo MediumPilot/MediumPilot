@@ -79,12 +79,6 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 
 5. We will review and merge if it looks good!
 
-## 👥 Contributors
-
-<a href="https://github.com/Prajwal18-MD/MediumPilot/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Prajwal18-MD/MediumPilot&refresh=true" />
-</a>
-
 ## 📄 License
 
 This project is licensed under the MIT [License](LICENSE) - see the LICENSE file for details.
