@@ -1,4 +1,7 @@
 import React from 'react';
+import githubLogo from '../assets/icons/github.png';
+import discordLogo from '../assets/icons/discord.png';
+import mediumLogo from '../assets/icons/medium.png';
 
 function openCenteredPopup(url) {
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
@@ -30,8 +33,12 @@ export default function Community() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 bg-white rounded-2xl shadow">
-            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-gray-900 mb-4'>
-              <img alt='Github logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/github.png'/>
+            <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-900 mb-4">
+              <img
+                alt="Github logo"
+                className="w-10 h-auto md:w-12"
+                src={githubLogo}
+              />
             </div>
             <h3 className="font-semibold mb-2">Contribute on GitHub</h3>
             <p className="text-sm text-gray-600 mb-4">
@@ -49,8 +56,12 @@ export default function Community() {
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow">
-            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4'>
-              <img alt='Discord logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/discord.png'/>
+            <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4">
+              <img
+                alt="Discord logo"
+                className="w-10 h-auto md:w-12"
+                src={discordLogo}
+              />
             </div>
             <h3 className="font-semibold mb-2">Join our Discord</h3>
             <p className="text-sm text-gray-600 mb-4">
@@ -67,8 +78,12 @@ export default function Community() {
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow">
-            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4'>
-              <img alt='Medium logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/medium.png'/>
+            <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4">
+              <img
+                alt="Medium logo"
+                className="w-10 h-auto md:w-12"
+                src={mediumLogo}
+              />
             </div>
             <h3 className="font-semibold mb-2">Subscribe on Medium</h3>
             <p className="text-sm text-gray-600 mb-4">
