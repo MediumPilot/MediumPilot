@@ -139,7 +139,7 @@ export default function SignIn() {
 
         <button
           onClick={handleEmailSignIn}
-          className="mb-2 w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white py-3 rounded-lg transition"
+          className="mb-2 w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white py-3 rounded-lg transition cursor-pointer"
           disabled={signInLoading}
         >
           {signInLoading ? 'Signing In...' : 'Sign In'}
@@ -148,7 +148,7 @@ export default function SignIn() {
         <button
           onClick={handleEmailRegister}
           disabled={registerLoading}
-          className="w-full bg-green-500 hover:bg-green-600 font-semibold text-white py-3 mb-2 rounded-lg transition"
+          className="w-full bg-green-500 hover:bg-green-600 font-semibold text-white py-3 mb-2 rounded-lg transition cursor-pointer"
         >
           {registerLoading ? 'Registering...' : 'Register'}
         </button>
@@ -156,7 +156,7 @@ export default function SignIn() {
         <button
           onClick={handleGithubSignIn}
           disabled={githubLoading}
-          className="flex justify-center items-center font-semibold gap-2 w-full mb-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition"
+          className="flex justify-center items-center font-semibold gap-2 w-full mb-3 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-900/70 transition cursor-pointer"
         >
           <img className="w-6" src={github} alt="github_logo" />
           <span>{githubLoading ? 'Signing in...' : 'Sign in with GitHub'}</span>
@@ -164,14 +164,14 @@ export default function SignIn() {
 
         <button
           onClick={handleGoogleSignIn}
-          className="flex items-center justify-center gap-2 w-full mb-3 py-2 text-black border rounded-lg hover:bg-blue-400 hover:border-blue-400 hover:text-white font-semibold transition"
+          className="flex items-center justify-center gap-2 w-full mb-3 py-2 text-black border rounded-lg hover:bg-blue-400 hover:border-blue-400 hover:text-white font-semibold transition cursor-pointer"
         >
           <img className=" w-6" src={google} alt="google_logo" />
           <span>Sign in with Google</span>
         </button>
 
         <Link to="/">
-          <button className="mt-4 w-full py-2 px-4 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition duration-200 ease-in-out flex items-center justify-center gap-2">
+          <button className="mt-4 w-full py-2 px-4 bg-gray-700 hover:bg-gray-700/70 text-white font-medium rounded-lg transition duration-200 ease-in-out flex items-center justify-center gap-2 cursor-pointer">
             <svg
               className="w-4 h-4"
               fill="none"
