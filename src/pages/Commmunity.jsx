@@ -30,6 +30,9 @@ export default function Community() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 bg-white rounded-2xl shadow">
+            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-gray-900 mb-4'>
+              <img alt='Github logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/github.png'/>
+            </div>
             <h3 className="font-semibold mb-2">Contribute on GitHub</h3>
             <p className="text-sm text-gray-600 mb-4">
               Open issues, suggest features or submit PRs. We welcome
@@ -46,6 +49,9 @@ export default function Community() {
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow">
+            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4'>
+              <img alt='Discord logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/discord.png'/>
+            </div>
             <h3 className="font-semibold mb-2">Join our Discord</h3>
             <p className="text-sm text-gray-600 mb-4">
               Quick help, community discussion and roadmap chat.
@@ -61,6 +67,9 @@ export default function Community() {
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow">
+            <div className='w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-50 mb-4'>
+              <img alt='Medium logo' class="w-10 h-auto md:w-12" src='../src/assets/icons/medium.png'/>
+            </div>
             <h3 className="font-semibold mb-2">Subscribe on Medium</h3>
             <p className="text-sm text-gray-600 mb-4">
               Subscribe to my Medium to receive the latest posts and updates
