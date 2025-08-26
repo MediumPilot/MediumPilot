@@ -1,25 +1,64 @@
+/**
+ * Dashboard Page Component
+ * 
+ * This component provides the main dashboard interface for authenticated users.
+ * It allows users to configure their Medium RSS URL and LinkedIn tokens
+ * for automatic sharing functionality.
+ * 
+ * @fileoverview User dashboard for configuring auto-sharing settings
+ * @author MediumPilot Team
+ * @version 1.0.0
+ */
+
 // src/pages/Dashboard.jsx
 import React, { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import logo from '../assets/mediumpilot.svg';
 
+/**
+ * Dashboard Page Component
+ * 
+ * Renders the main dashboard interface where users can configure their
+ * Medium RSS URL and LinkedIn tokens for automatic sharing. Handles form
+ * submission and displays status messages.
+ * 
+ * @param {Object} props - Component props
+ * @param {Object} props.user - Current authenticated user object
+ * @param {string} props.user.uid - User's unique identifier
+ * @returns {JSX.Element} The dashboard component
+ */
 export default function Dashboard({ user }) {
+  // Form state for configuration inputs
   const [rssUrl, setRssUrl] = useState('');
   const [liToken, setLiToken] = useState('');
   const [liActor, setLiActor] = useState('');
+  
+  // Status state for form submission feedback
   const [status, setStatus] = useState(null);
 
+  /**
+   * Handle form submission for user configuration
+   * 
+   * Submits user's Medium RSS URL and LinkedIn tokens to the backend API.
+   * Updates status state to provide user feedback on success or failure.
+   * 
+   * @param {Event} e - Form submission event
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+    
     try {
+      // Send configuration data to backend API
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rssUrl, liToken, liActor, uid: user.uid }),
       });
+      
       if (!res.ok) throw new Error(`Error ${res.status}`);
+      
       const data = await res.json();
       setStatus(`✅ All set! Your userId is ${data.userId}`);
     } catch (err) {
@@ -31,6 +70,7 @@ export default function Dashboard({ user }) {
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-lg">
+        {/* Header with logo and sign out */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex items-center mb-4 sm:mb-0">
             <img
@@ -48,7 +88,9 @@ export default function Dashboard({ user }) {
           </button>
         </div>
 
+        {/* Configuration form */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Medium RSS URL input */}
           <div>
             <label className="block mb-1 font-medium">Medium RSS URL</label>
             <input
@@ -60,6 +102,7 @@ export default function Dashboard({ user }) {
             />
           </div>
 
+          {/* LinkedIn Access Token input */}
           <div>
             <label className="block mb-1 font-medium">
               LinkedIn Access Token
@@ -73,6 +116,7 @@ export default function Dashboard({ user }) {
             />
           </div>
 
+          {/* LinkedIn Actor URN input */}
           <div>
             <label className="block mb-1 font-medium">LinkedIn Actor URN</label>
             <input
@@ -84,6 +128,7 @@ export default function Dashboard({ user }) {
             />
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold"
@@ -91,6 +136,7 @@ export default function Dashboard({ user }) {
             Enable Auto-Share
           </button>
 
+          {/* Status message */}
           {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
         </form>
       </div>

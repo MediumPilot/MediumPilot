@@ -1,3 +1,15 @@
+/**
+ * Sign In Page Component
+ * 
+ * This component provides the authentication interface for MediumPilot.
+ * It supports multiple authentication methods including email/password,
+ * Google, and GitHub OAuth. Handles user registration and sign-in flows.
+ * 
+ * @fileoverview Authentication page with multiple sign-in methods
+ * @author MediumPilot Team
+ * @version 1.0.0
+ */
+
 // src/pages/SignIn.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -13,14 +25,34 @@ import google from '../assets/icons/google.png';
 import github from '../assets/icons/github.png';
 import 'react-toastify/dist/ReactToastify.css';
 
+/**
+ * Sign In Page Component
+ * 
+ * Renders the authentication interface with multiple sign-in options.
+ * Handles email/password authentication, Google OAuth, and GitHub OAuth.
+ * Includes error handling and user feedback through toast notifications.
+ * 
+ * @returns {JSX.Element} The sign-in page component
+ */
 export default function SignIn() {
+  // Form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  // Loading states for different authentication methods
   const [signInLoading, setSignInLoading] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  
+  // Navigation hook
   const navigate = useNavigate();
 
+  /**
+   * Handle Google OAuth sign-in
+   * 
+   * Initiates Google OAuth popup and navigates to dashboard on success.
+   * Shows error toast if authentication fails.
+   */
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -30,12 +62,19 @@ export default function SignIn() {
     }
   };
 
+  /**
+   * Handle GitHub OAuth sign-in
+   * 
+   * Initiates GitHub OAuth popup with error handling for account conflicts.
+   * Provides specific error messages for different authentication scenarios.
+   */
   const handleGithubSignIn = async () => {
     setGithubLoading(true);
     try {
       const result = await signInWithPopup(auth, githubProvider);
       if (result?.user) navigate('/dashboard');
     } catch (e) {
+      // Handle account exists with different credential error
       if (e.code === 'auth/account-exists-with-different-credential') {
         const email = e.customData?.email;
         if (!email) {
@@ -45,6 +84,7 @@ export default function SignIn() {
           return;
         }
         try {
+          // Check what sign-in methods are available for this email
           const methods = await fetchSignInMethodsForEmail(auth, email);
           const providerName =
             methods[0] === 'password'
@@ -66,9 +106,16 @@ export default function SignIn() {
     }
   };
 
+  /**
+   * Handle email/password sign-in
+   * 
+   * Validates existing account methods and signs in with email/password.
+   * Clears form on completion and shows appropriate error messages.
+   */
   const handleEmailSignIn = async () => {
     setSignInLoading(true);
     try {
+      // Check if account exists and what methods are available
       const methods = await fetchSignInMethodsForEmail(auth, email);
       if (methods.length && !methods.includes('password')) {
         const provider = methods[0] === 'google.com' ? 'Google' : methods[0];
@@ -77,6 +124,8 @@ export default function SignIn() {
         );
         return;
       }
+      
+      // Attempt email/password sign-in
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (e) {
@@ -88,9 +137,16 @@ export default function SignIn() {
     }
   };
 
+  /**
+   * Handle email/password registration
+   * 
+   * Checks if account already exists and creates new account if not.
+   * Validates against existing OAuth accounts and provides clear error messages.
+   */
   const handleEmailRegister = async () => {
     setRegisterLoading(true);
     try {
+      // Check if account already exists
       const methods = await fetchSignInMethodsForEmail(auth, email);
       if (methods.length > 0) {
         const provider =
@@ -104,6 +160,8 @@ export default function SignIn() {
         );
         return;
       }
+      
+      // Create new account
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (e) {
@@ -117,10 +175,14 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      {/* Toast notifications container */}
       <ToastContainer position="top-center" />
+      
+      {/* Sign-in form container */}
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
         <h1 className="text-2xl font-bold mb-6">Sign in to MediumPilot</h1>
 
+        {/* Email input */}
         <input
           type="email"
           placeholder="Email"
@@ -129,6 +191,7 @@ export default function SignIn() {
           className="mb-2 w-full border rounded p-2"
         />
 
+        {/* Password input */}
         <input
           type="password"
           placeholder="Password"
@@ -137,6 +200,7 @@ export default function SignIn() {
           className="mb-4 w-full border rounded p-2"
         />
 
+        {/* Email/password sign-in button */}
         <button
           onClick={handleEmailSignIn}
           className="mb-2 w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white py-3 rounded-lg transition cursor-pointer"
@@ -145,6 +209,7 @@ export default function SignIn() {
           {signInLoading ? 'Signing In...' : 'Sign In'}
         </button>
 
+        {/* Email/password registration button */}
         <button
           onClick={handleEmailRegister}
           disabled={registerLoading}
@@ -153,6 +218,7 @@ export default function SignIn() {
           {registerLoading ? 'Registering...' : 'Register'}
         </button>
 
+        {/* GitHub OAuth button */}
         <button
           onClick={handleGithubSignIn}
           disabled={githubLoading}
@@ -162,6 +228,7 @@ export default function SignIn() {
           <span>{githubLoading ? 'Signing in...' : 'Sign in with GitHub'}</span>
         </button>
 
+        {/* Google OAuth button */}
         <button
           onClick={handleGoogleSignIn}
           className="flex items-center justify-center gap-2 w-full mb-3 py-2 text-black border rounded-lg hover:bg-blue-400 hover:border-blue-400 hover:text-white font-semibold transition cursor-pointer"
@@ -170,6 +237,7 @@ export default function SignIn() {
           <span>Sign in with Google</span>
         </button>
 
+        {/* Back to landing page link */}
         <Link to="/">
           <button className="mt-4 w-full py-2 px-4 bg-gray-700 hover:bg-gray-700/70 text-white font-medium rounded-lg transition duration-200 ease-in-out flex items-center justify-center gap-2 cursor-pointer">
             <svg
