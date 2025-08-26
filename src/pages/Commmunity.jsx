@@ -1,10 +1,10 @@
 /**
  * Community Section Component
- * 
+ *
  * This component displays the community section of the landing page.
  * It provides links to GitHub, Discord, and Medium for community engagement
  * and includes a helper function for opening centered popups.
- * 
+ *
  * @fileoverview Community section with social links and engagement
  * @author MediumPilot Team
  * @version 1.0.0
@@ -17,16 +17,16 @@ import mediumLogo from '../assets/icons/medium.png';
 
 /**
  * Opens a centered popup window
- * 
+ *
  * Opens a new window with specified dimensions centered on the screen.
  * On mobile devices, opens in a new tab instead of a popup.
- * 
+ *
  * @param {string} url - The URL to open in the popup
  */
 function openCenteredPopup(url) {
   // Check if device is mobile
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  
+
   if (isMobile) {
     // On mobile, open in new tab
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -34,27 +34,27 @@ function openCenteredPopup(url) {
   }
 
   // Desktop popup configuration
-  const w = 1000;  // Window width
-  const h = 800;   // Window height
-  
+  const w = 1000; // Window width
+  const h = 800; // Window height
+
   // Calculate center position
   const left = Math.max(0, (window.screen.width - w) / 2);
   const top = Math.max(0, (window.screen.height - h) / 2);
-  
+
   // Popup features string
   const features = `toolbar=0,location=0,status=0,menubar=0,scrollbars=1,resizable=1,width=${w},height=${h},top=${top},left=${left}`;
-  
+
   // Open centered popup
   window.open(url, '_blank', features);
 }
 
 /**
  * Community Section Component
- * 
+ *
  * Renders the community section with three cards for different community platforms:
  * GitHub for contributions, Discord for discussions, and Medium for updates.
  * Each card includes an icon, description, and action buttons.
- * 
+ *
  * @returns {JSX.Element} The community section component
  */
 export default function Community() {

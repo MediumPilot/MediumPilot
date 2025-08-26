@@ -1,9 +1,9 @@
 /**
  * ESLint Configuration File
- * 
+ *
  * This file configures ESLint for the MediumPilot React application.
  * ESLint provides code linting, style checking, and error detection.
- * 
+ *
  * @fileoverview Code quality and style configuration for the MediumPilot project
  * @author MediumPilot Team
  * @version 1.0.0
@@ -17,14 +17,14 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 /**
  * ESLint configuration object
- * 
+ *
  * Configures linting rules for JavaScript and React development.
  * The configuration includes:
  * - Recommended JavaScript rules
  * - React Hooks rules for proper hook usage
  * - React Refresh rules for development
  * - Custom rules for unused variables
- * 
+ *
  * @type {import('eslint').Linter.Config}
  */
 export default defineConfig([

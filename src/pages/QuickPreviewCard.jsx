@@ -1,10 +1,10 @@
 /**
  * Quick Preview Card Component
- * 
+ *
  * This component displays a preview card in the hero section showing
  * how MediumPilot works. It provides a visual representation of the
  * product interface and workflow.
- * 
+ *
  * @fileoverview Product preview card for hero section
  * @author MediumPilot Team
  * @version 1.0.0
@@ -14,11 +14,11 @@ import React from 'react';
 
 /**
  * Quick Preview Card Component
- * 
+ *
  * Renders a preview card that shows the MediumPilot interface and workflow.
  * Displays information about connecting Medium RSS and LinkedIn tokens,
  * and the auto-sharing functionality.
- * 
+ *
  * @returns {JSX.Element} The quick preview card component
  */
 export default function QuickPreviewCard() {
@@ -44,7 +44,7 @@ export default function QuickPreviewCard() {
             rest.
           </p>
         </div>
-        
+
         {/* Auto-share section */}
         <div className="mt-4 bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 rounded-lg">
           <p className="text-sm text-gray-700 mb-1">Auto share</p>

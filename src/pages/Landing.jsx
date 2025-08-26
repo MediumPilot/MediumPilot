@@ -1,10 +1,10 @@
 /**
  * Landing Page Component
- * 
+ *
  * This component serves as the main landing page for the MediumPilot application.
  * It combines all the main sections of the landing page including hero, features,
  * community, and footer components.
- * 
+ *
  * @fileoverview Main landing page that combines all sections
  * @author MediumPilot Team
  * @version 1.0.0
@@ -19,11 +19,11 @@ import Footer from '../pages/Footer';
 
 /**
  * Landing Page Component
- * 
+ *
  * Renders the complete landing page with all sections including navigation,
  * hero section, features, community, and footer. Uses a gradient background
  * for visual appeal.
- * 
+ *
  * @returns {JSX.Element} The complete landing page
  */
 export default function Landing() {

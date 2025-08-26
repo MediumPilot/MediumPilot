@@ -1,10 +1,10 @@
 /**
  * Features Section Component
- * 
+ *
  * This component displays the features section of the landing page.
  * It showcases the key capabilities and benefits of MediumPilot
  * using a grid of feature cards.
- * 
+ *
  * @fileoverview Features section with product capabilities showcase
  * @author MediumPilot Team
  * @version 1.0.0
@@ -15,10 +15,10 @@ import FeatureCard from './FeatureCard';
 
 /**
  * Features data array
- * 
+ *
  * Contains all the features to be displayed in the features section.
  * Each feature has an icon, title, and description.
- * 
+ *
  * @type {Array<Object>}
  * @property {string} icon - Emoji icon representing the feature
  * @property {string} title - Feature title
@@ -59,11 +59,11 @@ const FEATURES = [
 
 /**
  * Features Section Component
- * 
+ *
  * Renders the features section with a grid of feature cards.
  * Each card displays an icon, title, and description for a product feature.
  * Uses responsive grid layout that adapts to different screen sizes.
- * 
+ *
  * @returns {JSX.Element} The features section component
  */
 export default function Features() {

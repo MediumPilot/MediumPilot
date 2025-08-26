@@ -1,9 +1,9 @@
 /**
  * Navigation Bar Component
- * 
+ *
  * This component provides the main navigation for the MediumPilot application.
  * It includes the logo, navigation links, GitHub star count, and mobile menu functionality.
- * 
+ *
  * @fileoverview Main navigation component with responsive design and GitHub integration
  * @author MediumPilot Team
  * @version 1.0.0
@@ -20,11 +20,11 @@ const GITHUB_REPO = 'MediumPilot';
 
 /**
  * Navigation Bar Component
- * 
+ *
  * Provides responsive navigation with logo, links, GitHub star count,
  * and mobile menu functionality. Fetches GitHub star count and handles
  * smooth scrolling to page sections.
- * 
+ *
  * @returns {JSX.Element} The navigation bar component
  */
 export default function Navbar() {
@@ -37,16 +37,16 @@ export default function Navbar() {
 
   /**
    * Effect to fetch and update GitHub star count
-   * 
+   *
    * Fetches the current star count from GitHub API and updates it every 5 minutes.
    * Handles authentication with GitHub token if available.
    */
   useEffect(() => {
     let mounted = true;
-    
+
     /**
      * Fetch GitHub repository star count
-     * 
+     *
      * Makes API call to GitHub to get current star count for the repository.
      * Uses GitHub token if available for higher rate limits.
      */
@@ -61,18 +61,18 @@ export default function Navbar() {
           (typeof process !== 'undefined' &&
             process.env.REACT_APP_GITHUB_TOKEN) ||
           null;
-        
+
         // Set authorization headers if token is available
         const headers = token ? { Authorization: `token ${token}` } : {};
-        
+
         // Fetch repository data from GitHub API
         const res = await fetch(
           `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`,
           { headers }
         );
-        
+
         if (!res.ok) throw new Error('Failed to fetch GitHub repo');
-        
+
         const json = await res.json();
         if (mounted) setStars(json.stargazers_count ?? 0);
       } catch (err) {
@@ -85,10 +85,10 @@ export default function Navbar() {
 
     // Initial fetch
     fetchStars();
-    
+
     // Set up interval to refresh stars every 5 minutes
     const id = setInterval(fetchStars, 1000 * 60 * 5);
-    
+
     // Cleanup function
     return () => {
       mounted = false;
@@ -98,7 +98,7 @@ export default function Navbar() {
 
   /**
    * Effect to handle Escape key for closing mobile menu
-   * 
+   *
    * Adds event listener for Escape key to close mobile menu when pressed.
    */
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function Navbar() {
 
   /**
    * Effect to prevent background scroll when mobile menu is open
-   * 
+   *
    * Sets body overflow to hidden when mobile menu is open to prevent
    * background scrolling and improve user experience.
    */
@@ -121,10 +121,10 @@ export default function Navbar() {
 
   /**
    * Smooth scroll to page section
-   * 
+   *
    * Closes mobile menu and smoothly scrolls to the specified section ID.
    * Falls back to scrolling to top if element is not found.
-   * 
+   *
    * @param {string} id - The ID of the element to scroll to
    */
   const scrollToId = useCallback((id) => {
