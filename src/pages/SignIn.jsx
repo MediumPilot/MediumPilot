@@ -11,7 +11,7 @@
  */
 
 // src/pages/SignIn.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
@@ -36,8 +36,12 @@ import 'react-toastify/dist/ReactToastify.css';
  */
 export default function SignIn() {
   // Form state
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(()=>{
+    return localStorage.getItem('email') || '';
+  });
+  const [password, setPassword] = useState(()=>{
+    return localStorage.getItem('password') || '';
+  });
 
   // Loading states for different authentication methods
   const [signInLoading, setSignInLoading] = useState(false);
@@ -46,6 +50,11 @@ export default function SignIn() {
 
   // Navigation hook
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(email) localStorage.setItem('email', email);
+    if(password) localStorage.setItem('password', password);
+  }, [email, password]);
 
   /**
    * Handle Google OAuth sign-in
