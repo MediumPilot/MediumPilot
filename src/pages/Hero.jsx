@@ -11,6 +11,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';   // ✅ added this
 import logo from '../assets/mediumpilot.svg';
 import QuickPreviewCard from './QuickPreviewCard';
 
@@ -54,13 +55,13 @@ export default function Hero() {
               Explore Features
             </a>
 
-            {/* Secondary CTA - Get Demo */}
-            <a
-              href="/signin"
-              className="px-5 py-3 rounded-lg border border-gray-300 hover:bg-gray-100 font-semibold"
+            {/* Secondary CTA - Get Demo (used Link instead of <a>) */}
+            <Link
+              to="/signin"
+              className="px-5 py-3 rounded-lg border border-gray-300 font-semibold bg-white hover:bg-gray-100 transition"
             >
               Get Demo
-            </a>
+            </Link>
           </div>
         </div>
 
