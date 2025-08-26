@@ -1,23 +1,42 @@
+/**
+ * Global Styles and Tailwind CSS Configuration
+ * 
+ * This file contains global styles, custom CSS classes, and Tailwind CSS imports
+ * for the MediumPilot application. Includes custom animations, responsive design,
+ * and component-specific styling.
+ * 
+ * @fileoverview Global styles and custom CSS classes
+ * @author MediumPilot Team
+ * @version 1.0.0
+ */
+
+/* Import Tailwind CSS framework */
 @import 'tailwindcss';
+
+/* ===== GLOBAL STYLES ===== */
 
 /* Smooth scrolling for the whole page */
 html {
   scroll-behavior: smooth;
 }
 
-/* Optional small tweaks */
+/* Font smoothing for better text rendering */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* subtle utility helper for glass effect fallback */
+/* ===== UTILITY CLASSES ===== */
+
+/* Glass effect utility class for backdrop blur */
 .bg-glass {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(6px);
 }
 
-/* ---------- Brand / Title ---------- */
+/* ===== BRAND STYLING ===== */
+
+/* Brand title gradient styling */
 /* Title gradient (indigo -> lighter center -> indigo) */
 .brand-title {
   background: linear-gradient(90deg, #4f46e5 0%, #9aa1ff 50%, #4f46e5 100%);
@@ -27,7 +46,9 @@ body {
   display: inline-block;
 }
 
-/* ---------- Nav links (center) ---------- */
+/* ===== NAVIGATION STYLING ===== */
+
+/* Navigation link styles for desktop and mobile */
 /* Plain center nav links: hover to orange (no 3D) */
 .nav-link,
 .nav-link-mobile {
@@ -41,6 +62,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Desktop navigation link hover effects */
 .nav-link:hover,
 .nav-link:focus {
   color: #f26b21; /* brand orange */
@@ -48,20 +70,21 @@ body {
   outline: none;
 }
 
-/* Mobile/touch feedback */
+/* Mobile navigation link active/focus states */
 .nav-link-mobile:active,
 .nav-link-mobile:focus {
   background: #fafafa;
   color: #f26b21;
 }
 
-/* ---------- Lift / Glow (3D) ---------- */
-/* root-level default shadow used by lifts */
+/* ===== LIFT AND GLOW EFFECTS ===== */
+
+/* Root-level default shadow used by lifts */
 :root {
   --lift-shadow: 0 10px 30px rgba(17, 17, 35, 0.08);
 }
 
-/* Generic lift base (optional to reuse) */
+/* Generic lift base class for reusable 3D effects */
 .lift-base {
   transition:
     transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1),
@@ -72,9 +95,10 @@ body {
   will-change: transform, box-shadow;
 }
 
-/* ---------- GitHub star pill (gold gradient) ---------- */
+/* ===== GITHUB STAR BUTTON STYLING ===== */
+
+/* GitHub star pill with gold gradient and lift effects */
 /* Note: the component adds bg-gradient-to-r from-yellow-300 to-yellow-400 inline class */
-/* Ensure pill looks good and animates */
 .lift-star {
   display: inline-flex;
   align-items: center;
@@ -98,7 +122,7 @@ body {
   --star-glow: 0 18px 50px rgba(242, 107, 33, 0.12); /* orange glow */
 }
 
-/* hover / focus: lift + glow */
+/* GitHub star button hover and focus states */
 .lift-star:hover,
 .lift-star:focus {
   transform: translateY(-6px) scale(1.02);
@@ -107,20 +131,22 @@ body {
   outline: none;
 }
 
-/* active: press state */
+/* GitHub star button active state */
 .lift-star:active {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(17, 17, 35, 0.06);
 }
 
-/* accessible focus ring */
+/* GitHub star button focus ring for accessibility */
 .lift-star:focus-visible {
   box-shadow:
     0 12px 36px rgba(17, 17, 35, 0.08),
     0 0 0 4px rgba(242, 107, 33, 0.1);
 }
 
-/* ---------- Get Demo lift (indigo glow) ---------- */
+/* ===== GET DEMO BUTTON STYLING ===== */
+
+/* Get Demo button with indigo glow and lift effects */
 .lift-getdemo {
   display: inline-flex;
   align-items: center;
@@ -136,7 +162,7 @@ body {
   --get-glow: 0 20px 60px rgba(79, 70, 229, 0.12); /* indigo glow */
 }
 
-/* hover / focus - subtle 3D lift and indigo glow */
+/* Get Demo button hover and focus states */
 .lift-getdemo:hover,
 .lift-getdemo:focus {
   transform: translateY(-6px) scale(1.02);
@@ -145,28 +171,31 @@ body {
   outline: none;
 }
 
-/* active: press */
+/* Get Demo button active state */
 .lift-getdemo:active {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(17, 17, 35, 0.06);
 }
 
-/* focus-visible ring for lift-getdemo (subtle indigo) */
+/* Get Demo button focus ring for accessibility */
 .lift-getdemo:focus-visible {
   box-shadow:
     0 12px 36px rgba(17, 17, 35, 0.08),
     0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
-/* ---------- Misc / responsiveness ---------- */
-/* small mobile tweaks */
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Mobile-specific adjustments */
 @media (max-width: 767px) {
   .nav-link {
     font-size: 16px;
   }
 }
 
-/* ensure interactive elements don't show native tap highlight */
+/* ===== ACCESSIBILITY ===== */
+
+/* Remove native tap highlight for interactive elements */
 button[aria-label],
 .nav-link,
 .nav-link-mobile,
@@ -175,13 +204,17 @@ button[aria-label],
   -webkit-tap-highlight-color: transparent;
 }
 
-/* small visual safety for star pill when gradient is added inline
-   (keeps contrast readable and a light border to separate from background) */
+/* ===== ENHANCED BUTTON STYLING ===== */
+
+/* Visual safety for star pill when gradient is added inline */
 .lift-star {
   border: 1px solid rgba(17, 17, 35, 0.06);
   color: #111827; /* dark text on gold */
 }
 
+/* ===== CTA PILL COMPONENT STYLING ===== */
+
+/* Call-to-action pill component with professional styling */
 .cta-pill {
   display: inline-flex !important;
   align-items: center !important;
@@ -210,7 +243,9 @@ button[aria-label],
   will-change: transform, box-shadow !important;
 }
 
-/* Enhanced GitHub Star button styling */
+/* ===== ENHANCED GITHUB STAR BUTTON ===== */
+
+/* Enhanced GitHub Star button with better gradient and shadows */
 .lift-star.cta-pill {
   color: #111827 !important;
   background: linear-gradient(
@@ -223,6 +258,7 @@ button[aria-label],
     0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Enhanced GitHub Star button hover state */
 .lift-star.cta-pill:hover {
   transform: translateY(-4px) scale(1.02) !important;
   box-shadow:
@@ -231,7 +267,9 @@ button[aria-label],
   filter: brightness(1.05) !important;
 }
 
-/* Enhanced Get Demo button styling */
+/* ===== ENHANCED GET DEMO BUTTON ===== */
+
+/* Enhanced Get Demo button with gradient and shadows */
 .lift-getdemo.cta-pill {
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
   color: white !important;
@@ -240,6 +278,7 @@ button[aria-label],
     0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Enhanced Get Demo button hover state */
 .lift-getdemo.cta-pill:hover {
   transform: translateY(-4px) scale(1.02) !important;
   background: linear-gradient(135deg, #4338ca 0%, #5b21b6 100%) !important;
@@ -249,7 +288,9 @@ button[aria-label],
   filter: brightness(1.05) !important;
 }
 
-/* Active state for both buttons */
+/* ===== ACTIVE AND FOCUS STATES ===== */
+
+/* Active state for both button types */
 .cta-pill:active {
   transform: translateY(-2px) scale(1.01) !important;
   transition-duration: 100ms !important;
@@ -261,7 +302,9 @@ button[aria-label],
   outline-offset: 2px !important;
 }
 
-/* Mobile responsive adjustments */
+/* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
+
+/* Mobile responsive adjustments for CTA pills */
 @media (max-width: 640px) {
   .cta-pill {
     min-width: 100px !important;
@@ -270,6 +313,8 @@ button[aria-label],
     height: 40px !important;
   }
 }
+
+/* ===== FORCE OVERRIDE STYLES ===== */
 
 /* Force override any conflicting Tailwind classes */
 .lift-star.cta-pill,

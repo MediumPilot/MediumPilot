@@ -1,1 +1,13 @@
+/**
+ * App-specific CSS Styles
+ * 
+ * This file contains app-specific styles and Tailwind CSS imports.
+ * Currently only imports Tailwind CSS for utility-first styling.
+ * 
+ * @fileoverview App-specific CSS configuration
+ * @author MediumPilot Team
+ * @version 1.0.0
+ */
+
+/* Import Tailwind CSS for utility-first styling */
 @import 'tailwindcss';
