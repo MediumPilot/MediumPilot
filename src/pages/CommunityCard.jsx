@@ -232,11 +232,6 @@ return (
               </a>
             
             </div>
-            <p className="text-xs text-gray-500 mt-3">
-                     Note: you'll need to sign in to Medium (if not already) and click{' '}
-              <strong>Follow</strong> on my profile — Medium will send email
-              updates to followers.
-            </p>
             </>
           ):(
             <a
