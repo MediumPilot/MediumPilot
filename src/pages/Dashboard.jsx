@@ -30,23 +30,23 @@ import logo from '../assets/mediumpilot.svg';
  */
 export default function Dashboard({ user }) {
   // Form state for configuration inputs
-  const [rssUrl, setRssUrl] = useState(()=>{
+  const [rssUrl, setRssUrl] = useState(() => {
     return localStorage.getItem('rssUrl') || '';
   });
-  const [liToken, setLiToken] = useState(()=>{
+  const [liToken, setLiToken] = useState(() => {
     return localStorage.getItem('liToken') || '';
   });
-  const [liActor, setLiActor] = useState(()=>{
+  const [liActor, setLiActor] = useState(() => {
     return localStorage.getItem('liActor') || '';
   });
 
   // Status state for form submission feedback
   const [status, setStatus] = useState(null);
 
-  useEffect(()=>{
-    if(rssUrl) localStorage.setItem('rssUrl', rssUrl);
-    if(liToken) localStorage.setItem('liToken', liToken);
-    if(liActor) localStorage.setItem('liActor', liActor);
+  useEffect(() => {
+    if (rssUrl) localStorage.setItem('rssUrl', rssUrl);
+    if (liToken) localStorage.setItem('liToken', liToken);
+    if (liActor) localStorage.setItem('liActor', liActor);
   }, [rssUrl, liToken, liActor]);
 
   /**

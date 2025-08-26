@@ -36,10 +36,10 @@ import 'react-toastify/dist/ReactToastify.css';
  */
 export default function SignIn() {
   // Form state
-  const [email, setEmail] = useState(()=>{
+  const [email, setEmail] = useState(() => {
     return localStorage.getItem('email') || '';
   });
-  const [password, setPassword] = useState(()=>{
+  const [password, setPassword] = useState(() => {
     return localStorage.getItem('password') || '';
   });
 
@@ -51,9 +51,9 @@ export default function SignIn() {
   // Navigation hook
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(email) localStorage.setItem('email', email);
-    if(password) localStorage.setItem('password', password);
+  useEffect(() => {
+    if (email) localStorage.setItem('email', email);
+    if (password) localStorage.setItem('password', password);
   }, [email, password]);
 
   /**

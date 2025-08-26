@@ -51,35 +51,35 @@ export default function Community() {
 
         {/* Community cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <CommunityCard
-              key='Contribute On Github'
-              img={githubLogo}
-              title='Contribute on GitHub'
-              desc='Open issues, suggest features or submit PRs. We welcome contributors.'
-              btndesc='View on GitHub'
-              btnlink='https://github.com/Prajwal18-MD/MediumPilot'
-              btncolor='#111827'
-              />
+          <CommunityCard
+            key="Contribute On Github"
+            img={githubLogo}
+            title="Contribute on GitHub"
+            desc="Open issues, suggest features or submit PRs. We welcome contributors."
+            btndesc="View on GitHub"
+            btnlink="https://github.com/Prajwal18-MD/MediumPilot"
+            btncolor="#111827"
+          />
 
-            <CommunityCard
-              key='Join Our Discord'
-              img={discordLogo}
-              title='Join our Discord'
-              desc='Quick help, community discussion and roadmap chat.'
-              btndesc='Join Discord'
-              btnlink='https://discord.gg/pZJ8dJspQu'
-              btncolor='#4F46E5'
-              />
+          <CommunityCard
+            key="Join Our Discord"
+            img={discordLogo}
+            title="Join our Discord"
+            desc="Quick help, community discussion and roadmap chat."
+            btndesc="Join Discord"
+            btnlink="https://discord.gg/pZJ8dJspQu"
+            btncolor="#4F46E5"
+          />
 
-            <CommunityCard
-              key='Subscribe on Medium'
-              img={mediumLogo}
-              title='Subscribe on Medium'
-              desc='Subscribe to my Medium to receive the latest posts and updates directly from Medium.'
-              btndesc='Subscribe'
-              btncolor='#4F46E5'
-              note={true}
-              />
+          <CommunityCard
+            key="Subscribe on Medium"
+            img={mediumLogo}
+            title="Subscribe on Medium"
+            desc="Subscribe to my Medium to receive the latest posts and updates directly from Medium."
+            btndesc="Subscribe"
+            btncolor="#4F46E5"
+            note={true}
+          />
         </div>
       </div>
     </section>
