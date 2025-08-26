@@ -35,10 +35,15 @@ const FEATURES = [
     title: 'Secure Tokens',
     desc: 'Tokens are stored only for your account and used securely.',
   },
+    {
+    icon: '🧑‍🤝‍🧑',
+    title: 'Team & Community',
+    desc: 'Invite collaborators, developers and share best practices.',
+  },
   {
-    icon: '⚙️',
-    title: 'Customizable',
-    desc: 'Choose what to include in the LinkedIn post: title, excerpt, tags.',
+    icon: '🤖',
+    title: 'AI Agent',
+    desc: 'AI generates title, intro, summary, excerpt, tags.',
   },
   {
     icon: '📈',
@@ -46,14 +51,9 @@ const FEATURES = [
     desc: 'Track clicks & impressions for shared posts.',
   },
   {
-    icon: '🧑‍🤝‍🧑',
-    title: 'Team & Community',
-    desc: 'Invite collaborators and share best practices.',
-  },
-  {
-    icon: '📅',
-    title: 'Control',
-    desc: 'Optional scheduling & post templates (roadmap).',
+    icon: '❌',
+    title: 'X/Twitter (coming soon)',
+    desc: 'Auto share to X/Twitter same as LinkedIn.'
   },
 ];
 
