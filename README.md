@@ -71,13 +71,17 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 
 1. Fork this repo
 
-2. Make your changes on a new branch
+2. Make Sure to Assign Yourself to the Issue before working on it.
 
-3. Test your code and functionlaity once!
+3. Make your changes on a new branch
 
-4. Create a pull request with a meaningful description
+4. Test your code and functionlaity once!
 
-5. We will review and merge if it looks good!
+5. Create a pull request with a meaningful description
+
+6. We will review and merge if it looks good!
+
+Note ("Your PR will only be accepted when you assign yourself to the issue")
 
 ## 📄 License
 
