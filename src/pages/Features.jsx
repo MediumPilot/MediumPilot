@@ -35,7 +35,7 @@ const FEATURES = [
     title: 'Secure Tokens',
     desc: 'Tokens are stored only for your account and used securely.',
   },
-    {
+  {
     icon: '🧑‍🤝‍🧑',
     title: 'Team & Community',
     desc: 'Invite collaborators, developers and share best practices.',
@@ -53,7 +53,7 @@ const FEATURES = [
   {
     icon: '❌',
     title: 'X/Twitter (coming soon)',
-    desc: 'Auto share to X/Twitter same as LinkedIn.'
+    desc: 'Auto share to X/Twitter same as LinkedIn.',
   },
 ];
 

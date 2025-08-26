@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
- import githubLogo from '../assets/icons/github.png';
+import githubLogo from '../assets/icons/github.png';
 
- function openCenteredPopup(url) {
+function openCenteredPopup(url) {
   // Check if device is mobile
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
@@ -26,31 +26,39 @@ import React, { useState } from 'react';
   window.open(url, '_blank', features);
 }
 
-export default function CommunityCard({title, desc, img, btndesc, btnlink, btncolor, note}) {
-    const [isHovered, setIsHovered] = useState(false);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const mediumUrl = 'https://medium.com/@prajju.18gryphon';
+export default function CommunityCard({
+  title,
+  desc,
+  img,
+  btndesc,
+  btnlink,
+  btncolor,
+  note,
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mediumUrl = 'https://medium.com/@prajju.18gryphon';
 
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) *2;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-        setMousePosition({ x, y});
-    }
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    setMousePosition({ x, y });
+  };
 
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-        setMousePosition({ x: 0, y: 0 });
-    }
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setMousePosition({ x: 0, y: 0 });
+  };
 
-return (
+  return (
     <div
       className="relative group perspective-[1000px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-              {/* Multiple glow layers for depth */}
+      {/* Multiple glow layers for depth */}
       <div
         className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
         style={{
@@ -171,9 +179,11 @@ return (
                 : 'none',
             }}
           >
-            {img == githubLogo ? <img className='bg-gray-900' src={img} alt="" /> :
-            <img src={img} alt="" />
-        }
+            {img == githubLogo ? (
+              <img className="bg-gray-900" src={img} alt="" />
+            ) : (
+              <img src={img} alt="" />
+            )}
           </div>
         </div>
 
@@ -206,8 +216,8 @@ return (
         >
           {desc}
         </p>
-          {btndesc == 'Subscribe' ? (
-            <>
+        {btndesc == 'Subscribe' ? (
+          <>
             <div className="flex gap-2 mt-4">
               <button
                 onClick={(e) => {
@@ -230,20 +240,19 @@ return (
               >
                 Open Medium
               </a>
-            
             </div>
-            </>
-          ):(
-            <a
-        style={{backgroundColor: btncolor}}
-              href={btnlink}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block px-4 py-2 rounded-lg text-white font-semibold mt-5"
-            >
-              {btndesc}
-            </a>
-          )}
+          </>
+        ) : (
+          <a
+            style={{ backgroundColor: btncolor }}
+            href={btnlink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block px-4 py-2 rounded-lg text-white font-semibold mt-5"
+          >
+            {btndesc}
+          </a>
+        )}
 
         {/* Interactive light beam */}
         <div
@@ -388,5 +397,5 @@ return (
         }
       `}</style>
     </div>
-);
+  );
 }
