@@ -1,10 +1,10 @@
 /**
  * Dashboard Page Component
- * 
+ *
  * This component provides the main dashboard interface for authenticated users.
  * It allows users to configure their Medium RSS URL and LinkedIn tokens
  * for automatic sharing functionality.
- * 
+ *
  * @fileoverview User dashboard for configuring auto-sharing settings
  * @author MediumPilot Team
  * @version 1.0.0
@@ -18,11 +18,11 @@ import logo from '../assets/mediumpilot.svg';
 
 /**
  * Dashboard Page Component
- * 
+ *
  * Renders the main dashboard interface where users can configure their
  * Medium RSS URL and LinkedIn tokens for automatic sharing. Handles form
  * submission and displays status messages.
- * 
+ *
  * @param {Object} props - Component props
  * @param {Object} props.user - Current authenticated user object
  * @param {string} props.user.uid - User's unique identifier
@@ -33,22 +33,22 @@ export default function Dashboard({ user }) {
   const [rssUrl, setRssUrl] = useState('');
   const [liToken, setLiToken] = useState('');
   const [liActor, setLiActor] = useState('');
-  
+
   // Status state for form submission feedback
   const [status, setStatus] = useState(null);
 
   /**
    * Handle form submission for user configuration
-   * 
+   *
    * Submits user's Medium RSS URL and LinkedIn tokens to the backend API.
    * Updates status state to provide user feedback on success or failure.
-   * 
+   *
    * @param {Event} e - Form submission event
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     try {
       // Send configuration data to backend API
       const res = await fetch('/api/register', {
@@ -56,9 +56,9 @@ export default function Dashboard({ user }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rssUrl, liToken, liActor, uid: user.uid }),
       });
-      
+
       if (!res.ok) throw new Error(`Error ${res.status}`);
-      
+
       const data = await res.json();
       setStatus(`✅ All set! Your userId is ${data.userId}`);
     } catch (err) {

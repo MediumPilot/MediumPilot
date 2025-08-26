@@ -1,10 +1,10 @@
 /**
  * Sign In Page Component
- * 
+ *
  * This component provides the authentication interface for MediumPilot.
  * It supports multiple authentication methods including email/password,
  * Google, and GitHub OAuth. Handles user registration and sign-in flows.
- * 
+ *
  * @fileoverview Authentication page with multiple sign-in methods
  * @author MediumPilot Team
  * @version 1.0.0
@@ -27,29 +27,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Sign In Page Component
- * 
+ *
  * Renders the authentication interface with multiple sign-in options.
  * Handles email/password authentication, Google OAuth, and GitHub OAuth.
  * Includes error handling and user feedback through toast notifications.
- * 
+ *
  * @returns {JSX.Element} The sign-in page component
  */
 export default function SignIn() {
   // Form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   // Loading states for different authentication methods
   const [signInLoading, setSignInLoading] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
-  
+
   // Navigation hook
   const navigate = useNavigate();
 
   /**
    * Handle Google OAuth sign-in
-   * 
+   *
    * Initiates Google OAuth popup and navigates to dashboard on success.
    * Shows error toast if authentication fails.
    */
@@ -64,7 +64,7 @@ export default function SignIn() {
 
   /**
    * Handle GitHub OAuth sign-in
-   * 
+   *
    * Initiates GitHub OAuth popup with error handling for account conflicts.
    * Provides specific error messages for different authentication scenarios.
    */
@@ -108,7 +108,7 @@ export default function SignIn() {
 
   /**
    * Handle email/password sign-in
-   * 
+   *
    * Validates existing account methods and signs in with email/password.
    * Clears form on completion and shows appropriate error messages.
    */
@@ -124,7 +124,7 @@ export default function SignIn() {
         );
         return;
       }
-      
+
       // Attempt email/password sign-in
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
@@ -139,7 +139,7 @@ export default function SignIn() {
 
   /**
    * Handle email/password registration
-   * 
+   *
    * Checks if account already exists and creates new account if not.
    * Validates against existing OAuth accounts and provides clear error messages.
    */
@@ -160,7 +160,7 @@ export default function SignIn() {
         );
         return;
       }
-      
+
       // Create new account
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
@@ -177,7 +177,7 @@ export default function SignIn() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       {/* Toast notifications container */}
       <ToastContainer position="top-center" />
-      
+
       {/* Sign-in form container */}
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
         <h1 className="text-2xl font-bold mb-6">Sign in to MediumPilot</h1>

@@ -1,9 +1,9 @@
 /**
  * Firebase Configuration and Authentication Setup
- * 
+ *
  * This file configures Firebase for the MediumPilot application.
  * It sets up authentication providers and exports Firebase services.
- * 
+ *
  * @fileoverview Firebase configuration and authentication setup
  * @author MediumPilot Team
  * @version 1.0.0
@@ -20,10 +20,10 @@ import {
 
 /**
  * Firebase configuration object
- * 
+ *
  * Contains all necessary Firebase configuration values loaded from environment variables.
  * These values are injected by Vercel in production or loaded from .env.local in development.
- * 
+ *
  * @type {Object}
  * @property {string} apiKey - Firebase API key for authentication
  * @property {string} authDomain - Firebase auth domain
@@ -53,14 +53,14 @@ const githubProvider = new GithubAuthProvider();
 
 /**
  * Export Firebase services and authentication methods
- * 
+ *
  * These exports provide access to Firebase authentication services
  * and methods throughout the application.
  */
 export {
-  auth,                           // Firebase Auth instance
-  googleProvider,                 // Google authentication provider
-  signInWithEmailAndPassword,     // Email/password sign-in method
+  auth, // Firebase Auth instance
+  googleProvider, // Google authentication provider
+  signInWithEmailAndPassword, // Email/password sign-in method
   createUserWithEmailAndPassword, // Email/password registration method
-  githubProvider,                 // GitHub authentication provider
+  githubProvider, // GitHub authentication provider
 };

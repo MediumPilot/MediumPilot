@@ -1,9 +1,9 @@
 /**
  * Main Application Component
- * 
+ *
  * This component serves as the root component of the MediumPilot application.
  * It handles authentication state, protected routes, and application routing.
- * 
+ *
  * @fileoverview Main application component with authentication and routing
  * @author MediumPilot Team
  * @version 1.0.0
@@ -21,10 +21,10 @@ import Dashboard from './pages/Dashboard';
 
 /**
  * Main App component that handles authentication and routing
- * 
+ *
  * This component manages the authentication state using Firebase Auth
  * and provides protected routes for authenticated users.
- * 
+ *
  * @returns {JSX.Element} The main application component
  */
 export default function App() {
@@ -35,7 +35,7 @@ export default function App() {
 
   /**
    * Effect to listen for authentication state changes
-   * 
+   *
    * Sets up a Firebase Auth listener to track user authentication status.
    * Updates the user state when authentication changes and stops checking
    * once the initial auth state is determined.
@@ -64,10 +64,10 @@ export default function App() {
 
   /**
    * Protected Route Component
-   * 
+   *
    * Wraps components that require authentication. If user is not authenticated,
    * redirects to sign-in page. Shows nothing while checking authentication.
-   * 
+   *
    * @param {Object} props - Component props
    * @param {React.ReactNode} props.children - Child components to render if authenticated
    * @returns {JSX.Element|null} Protected component or redirect

@@ -1,10 +1,10 @@
 /**
  * Hero Section Component
- * 
+ *
  * This component displays the main hero section of the landing page.
  * It contains the primary value proposition, call-to-action buttons,
  * and a preview card showing the product interface.
- * 
+ *
  * @fileoverview Main hero section with value proposition and CTAs
  * @author MediumPilot Team
  * @version 1.0.0
@@ -16,11 +16,11 @@ import QuickPreviewCard from './QuickPreviewCard';
 
 /**
  * Hero Section Component
- * 
+ *
  * Renders the main hero section with the product logo, headline,
  * description, call-to-action buttons, and a preview card.
  * Uses responsive design to adapt to different screen sizes.
- * 
+ *
  * @returns {JSX.Element} The hero section component
  */
 export default function Hero() {
@@ -31,12 +31,12 @@ export default function Hero() {
         <div className="lg:w-1/2">
           {/* Product logo */}
           <img src={logo} alt="MediumPilot" className="w-24 mb-6" />
-          
+
           {/* Main headline */}
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
             Auto share your Medium posts — grow reach, save time.
           </h1>
-          
+
           {/* Description */}
           <p className="text-lg text-gray-600 mb-8">
             MediumPilot automatically shares your Medium articles to LinkedIn
