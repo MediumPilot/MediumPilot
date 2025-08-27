@@ -10,12 +10,15 @@
  * @version 1.0.0
  */
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Navbar from '../Components/Navbar';
 import Hero from '../pages/Hero';
-import Features from '../pages/Features';
-import Community from '../pages/Commmunity';
-import Footer from '../pages/Footer';
+import { LazySection } from '../Components/LazySection';
+
+// Lazy loaded components
+const Features = lazy(() => import('./Features'));
+const Community = lazy(() => import('./Commmunity'));
+const Footer = lazy(() => import('./Footer'));
 
 /**
  * Landing Page Component
@@ -34,11 +37,23 @@ export default function Landing() {
       {/* Hero section with main value proposition */}
       <Hero />
       {/* Features section showcasing product capabilities */}
-      <Features />
+      <LazySection>
+        <Suspense fallback={null}>
+          <Features />
+        </Suspense>
+      </LazySection>
       {/* Community section with links to GitHub, Discord, and Medium */}
-      <Community />
+      <LazySection>
+        <Suspense fallback={null}>
+          <Community />
+        </Suspense>
+      </LazySection>
       {/* Footer with copyright and additional links */}
-      <Footer />
+      <LazySection>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </LazySection>
     </div>
   );
 }

@@ -10,7 +10,7 @@
  * @version 1.0.0
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import FeatureCard from './FeatureCard';
 
 // Import SVG icons
@@ -75,12 +75,31 @@ const FEATURES = [
  * @returns {JSX.Element} The features section component
  */
 export default function Features() {
+  // ref for animation
+  const futureRef = useRef(null);
+
+  useEffect(() => {
+    // Dynamically import the GSAP ScrollTrigger animation module to enable
+    // scroll-triggered animations only when this component is mounted.
+    // This approach uses code-splitting to avoid loading extra JS for small devices.
+    import('../animations/useGsapAnimation').then((mod) => {
+      mod.initAnimation().then((applyGsap) => {
+        applyGsap(futureRef, {
+          from: { opacity: 0, y: 50 },
+          to: { opacity: 1, y: 0 },
+        });
+      });
+    });
+  }, []);
+
   return (
-    <section id="features" className="py-20 bg-slate-50">
+    <section ref={futureRef} id="features" className="py-20 bg-slate-50">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">Features</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
+            Features
+          </h2>
           <p className="text-gray-600 mt-2">
             Everything you need to automate and control your sharing workflow.
           </p>
