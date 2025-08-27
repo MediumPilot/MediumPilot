@@ -29,7 +29,7 @@ export default function Hero() {
     <section className="py-8">
       <div className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-10">
         {/* Centered quote */}
-        <blockquote className="text-3xl md:text-4xl font-extrabold leading-tight">
+        <blockquote className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
           Auto share your Medium posts — grow reach, save time.
         </blockquote>
 

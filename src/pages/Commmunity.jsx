@@ -43,7 +43,7 @@ export default function Community() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold">Community</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">Community</h2>
           <p className="text-gray-600 mt-2">
             Contribute, chat, and stay updated.
           </p>
