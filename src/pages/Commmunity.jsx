@@ -10,7 +10,7 @@
  * @version 1.0.0
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import githubLogo from '../assets/icons/github.png';
 import discordLogo from '../assets/icons/discord.png';
 import mediumLogo from '../assets/icons/medium.png';
@@ -37,13 +37,29 @@ import CommunityCard from './CommunityCard';
 export default function Community() {
   // Medium profile URL
   const mediumUrl = 'https://medium.com/@prajju.18gryphon';
+  // ref for animation
+  const communityRef = useRef(null)
+
+  useEffect(() => {
+      // Dynamically import the GSAP ScrollTrigger animation module to enable
+      // scroll-triggered animations only when this component is mounted.
+      // This approach uses code-splitting to avoid loading extra JS for small devices.
+      import('../animations/useGsapAnimation').then((mod) => {
+        mod.initAnimation().then((applyGsap) => {
+          applyGsap(communityRef, {
+            from: { opacity: 0, y: 50 },
+            to: { opacity: 1, y: 0 },
+          });
+        });
+      });
+    }, []);
 
   return (
-    <section id="community" className="py-20">
+    <section ref={communityRef} id="community" className="py-20">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold">Community</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">Community</h2>
           <p className="text-gray-600 mt-2">
             Contribute, chat, and stay updated.
           </p>

@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 /**
  * Footer Component
@@ -20,34 +20,56 @@ import React from 'react';
  * @returns {JSX.Element} The footer component
  */
 export default function Footer() {
+  // ref for animation
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    // Dynamically import the GSAP ScrollTrigger animation module to enable
+    // scroll-triggered animations only when this component is mounted.
+    // This approach uses code-splitting to avoid loading extra JS for small devices.
+    import('../animations/useGsapAnimation').then((mod) => {
+      mod.initAnimation().then((applyGsap) => {
+        applyGsap(
+          footerRef,
+          {
+            from: { opacity: 0, y: 50 },
+            to: { opacity: 1, y: 0 },
+          },
+          0,
+          'top 100%'
+        );
+      });
+    });
+  }, []);
+
   return (
-    <footer className="border-t bg-white py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <footer className="border-t bg-white/90 backdrop-blur-sm py-8">
+      <div
+        ref={footerRef}
+        className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
         {/* Copyright information */}
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-slate-600">
           © {new Date().getFullYear()} MediumPilot — Built with ❤️
         </div>
 
         {/* Footer links */}
-        <div className="flex gap-4">
+        <div className="flex items-center gap-6">
           <a
             href="https://github.com/Prajwal18-MD/MediumPilot"
             target="_blank"
-            rel="noreferrer"
-            className="text-sm text-gray-700 hover:underline"
+            rel="noopener noreferrer"
+            className="nav-link text-sm font-medium text-slate-700"
           >
             GitHub
           </a>
           <a
             href="https://discord.gg/pZJ8dJspQu"
             target="_blank"
-            rel="noreferrer"
-            className="text-sm text-gray-700 hover:underline"
+            rel="noopener noreferrer"
+            className="nav-link text-sm font-medium text-slate-700"
           >
             Discord
-          </a>
-          <a href="/privacy" className="text-sm text-gray-700 hover:underline">
-            Privacy
           </a>
         </div>
       </div>
