@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import githubLogo from '../assets/icons/github.png';
+import githubLogo from '../assets/icons/github.svg';
 
 function openCenteredPopup(url) {
   // Check if device is mobile
@@ -180,7 +180,7 @@ export default function CommunityCard({
             }}
           >
             {img == githubLogo ? (
-              <img className="bg-gray-900" src={img} alt="" />
+              <img className="bg-gray-200" src={img} alt="" />
             ) : (
               <img src={img} alt="" />
             )}

@@ -11,9 +11,9 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import githubLogo from '../assets/icons/github.png';
-import discordLogo from '../assets/icons/discord.png';
-import mediumLogo from '../assets/icons/medium.png';
+import githubLogo from '../assets/icons/github.svg';
+import discordLogo from '../assets/icons/discord.svg';
+import mediumLogo from '../assets/icons/medium.svg';
 import CommunityCard from './CommunityCard';
 
 /**
