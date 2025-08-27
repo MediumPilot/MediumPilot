@@ -19,6 +19,9 @@ import React from 'react';
  *
  * @returns {JSX.Element} The footer component
  */
+
+import MediumPilotIcon from '../assets/mediumpilot.svg';
+
 export default function Footer() {
   return (
     <footer className="border-t bg-white/90 backdrop-blur-sm py-8">
@@ -45,6 +48,9 @@ export default function Footer() {
             className="nav-link text-sm font-medium text-slate-700"
           >
             Discord
+          </a>
+          <a href="/" rel="noopener noreferrer" className="nav-link">
+            <img width={40} className="h-auto" src={MediumPilotIcon} alt="" />
           </a>
         </div>
       </div>
