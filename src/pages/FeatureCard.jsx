@@ -21,7 +21,7 @@ import React, { useState } from 'react';
  * @param {Object} props - Component props
  * @param {string} props.title - The feature title
  * @param {string} props.desc - The feature description
- * @param {string} props.icon - The emoji icon for the feature
+ * @param {string} props.icon - The SVG icon path for the feature
  * @returns {JSX.Element} The feature card component
  */
 export default function FeatureCard({ title, desc, icon }) {
@@ -158,18 +158,17 @@ export default function FeatureCard({ title, desc, icon }) {
             }}
           />
 
-          <div
-            className="text-3xl font-bold transition-all duration-500 relative z-10"
+          <img
+            src={icon}
+            alt={title}
+            className="w-8 h-8 transition-all duration-500 relative z-10"
             style={{
-              color: isHovered ? '#ffffff' : '#6366f1',
               transform: isHovered ? 'scale(1.1)' : 'scale(1)',
               filter: isHovered
-                ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))'
-                : 'none',
+                ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(0) invert(1)'
+                : 'brightness(0) saturate(100%) invert(39%) sepia(57%) saturate(1739%) hue-rotate(217deg) brightness(94%) contrast(86%)',
             }}
-          >
-            {icon}
-          </div>
+          />
         </div>
 
         {/* Feature title with animated gradient */}
