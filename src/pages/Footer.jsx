@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 /**
  * Footer Component
@@ -20,9 +20,34 @@ import React from 'react';
  * @returns {JSX.Element} The footer component
  */
 export default function Footer() {
+  // ref for animation
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    // Dynamically import the GSAP ScrollTrigger animation module to enable
+    // scroll-triggered animations only when this component is mounted.
+    // This approach uses code-splitting to avoid loading extra JS for small devices.
+    import('../animations/useGsapAnimation').then((mod) => {
+      mod.initAnimation().then((applyGsap) => {
+        applyGsap(
+          footerRef,
+          {
+            from: { opacity: 0, y: 50 },
+            to: { opacity: 1, y: 0 },
+          },
+          0,
+          'top 100%'
+        );
+      });
+    });
+  }, []);
+
   return (
     <footer className="border-t bg-white/90 backdrop-blur-sm py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div
+        ref={footerRef}
+        className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
         {/* Copyright information */}
         <div className="text-sm text-slate-600">
           © {new Date().getFullYear()} MediumPilot — Built with ❤️
