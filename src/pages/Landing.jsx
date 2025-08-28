@@ -17,7 +17,7 @@ import { LazySection } from '../Components/LazySection';
 
 // Lazy loaded components
 const Features = lazy(() => import('./Features'));
-const Community = lazy(() => import('./Commmunity'));
+const Community = lazy(() => import('./Community'));
 const Footer = lazy(() => import('./Footer'));
 
 /**
