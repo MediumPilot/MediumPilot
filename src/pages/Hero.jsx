@@ -26,16 +26,16 @@ import flow from '../assets/flow.png';
  */
 export default function Hero() {
   return (
-    <section className="py-8">
-      <div className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-10">
+    <section className="py-10 md:py-14">
+      <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center gap-8 md:gap-10">
         {/* Centered quote */}
-        <blockquote className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
+        <blockquote className="text-3xl md:text-5xl font-extrabold tracking-tight leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
           Auto share your Medium posts — grow reach, save time.
         </blockquote>
 
         {/* Two supporting sentences kept in one line */}
         <p
-          className="text-lg text-gray-600 max-w-3xl"
+          className="text-base md:text-lg text-gray-600 max-w-3xl"
           // If you absolutely must keep them on one visual line even on very small screens,
           // add `whitespace-nowrap` (but that may create horizontal overflow). Currently left responsive.
         >
@@ -44,27 +44,26 @@ export default function Hero() {
           creators.
         </p>
 
-        {/* Flow image centered below the text (covers at least 70% width, preserves aspect ratio) */}
+        {/* Flow image centered below the text, inside a subtle card to match UI */}
         <div className="w-full flex justify-center mt-2">
-          <img
-            src={flow}
-            alt="Flow diagram showing MediumPilot workflow"
-            className="w-[70%] max-w-full h-auto object-contain"
-          />
+          <div className="w-full max-w-5xl rounded-2xl border border-slate-200 bg-white/80 backdrop-blur p-3 shadow-sm hover:shadow-md transition">
+            <img
+              src={flow}
+              alt="Flow diagram showing MediumPilot workflow"
+              className="w-full h-auto object-contain rounded-lg"
+            />
+          </div>
         </div>
 
         {/* Call-to-action buttons (after image as requested) */}
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <a
-            href="#features"
-            className="px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
-          >
+          <a href="#features" className="cta-pill lift-getdemo">
             Explore Features
           </a>
 
           <Link
             to="/signin"
-            className="px-6 py-3 rounded-lg border border-gray-300 font-semibold bg-white hover:bg-gray-100 transition"
+            className="cta-pill bg-white text-slate-800 hover:bg-slate-50"
           >
             Get Demo
           </Link>
