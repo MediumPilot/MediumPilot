@@ -10,6 +10,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
+import MediumPilotIcon from '../assets/mediumpilot.svg';
 
 /**
  * Footer Component
@@ -70,6 +71,19 @@ export default function Footer() {
             className="nav-link text-sm font-medium text-slate-700"
           >
             Discord
+          </a>
+          {/* MediumPilot Logo */}
+          <a
+            href="https://mediumpilot.vercel.app/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link flex items-center"
+          >
+            <img
+              src={MediumPilotIcon}
+              alt="MediumPilot"
+              className="h-6 w-auto" // Adjust size as needed
+            />
           </a>
         </div>
       </div>
