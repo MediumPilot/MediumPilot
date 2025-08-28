@@ -21,8 +21,8 @@ import {
 } from 'firebase/auth';
 import { auth, githubProvider, googleProvider } from '../firebase';
 import { ToastContainer, toast } from 'react-toastify';
-import google from '../assets/icons/google.png';
-import github from '../assets/icons/github.png';
+import github from '../assets/icons/github.svg';
+import google from '../assets/icons/google.svg';
 import 'react-toastify/dist/ReactToastify.css';
 
 /**
