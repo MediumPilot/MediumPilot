@@ -41,7 +41,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="py-10 md:py-14">
+    <section className="py-6 md:py-14">
       <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center gap-8 md:gap-10">
         {/* Centered quote */}
         <blockquote className="text-3xl md:text-5xl font-extrabold tracking-tight leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
