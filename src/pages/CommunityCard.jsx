@@ -136,10 +136,6 @@ export default function CommunityCard({
           className="relative w-16 h-16 flex items-center justify-center rounded-2xl mb-6 overflow-hidden
                      transform transition-all duration-500 group-hover:scale-110"
           style={{
-            transform: isHovered
-              ? `translateZ(40px) rotateZ(${mousePosition.x * 10}deg) scale(1.1)`
-              : 'translateZ(0px) rotateZ(0deg) scale(1)',
-            transformStyle: 'preserve-3d',
             background: isHovered
               ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
               : 'linear-gradient(135deg, #fff 0%, #fff 100%)',
@@ -176,12 +172,8 @@ export default function CommunityCard({
                 : 'none',
             }}
           >
-            {img == githubLogo ? (
-              <img className="bg-gray-200" src={img} alt="" />
-            ) : (
-              <img src={img} alt="" />
-            )}
-          </div>
+              <img src={img} alt=""/>
+            </div>
         </div>
 
         {/* Feature title with animated gradient */}
