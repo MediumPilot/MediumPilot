@@ -142,10 +142,7 @@ export default function CommunityCard({
             transformStyle: 'preserve-3d',
             background: isHovered
               ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-              : 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
-            boxShadow: isHovered
-              ? '0 10px 30px rgba(102, 126, 234, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
-              : '0 4px 10px rgba(0, 0, 0, 0.05)',
+              : 'linear-gradient(135deg, #fff 0%, #fff 100%)',
           }}
         >
           {/* Inner glow for icon */}
