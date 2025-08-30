@@ -234,7 +234,7 @@ export default function SignIn() {
           disabled={githubLoading}
           className="flex justify-center items-center font-semibold gap-2 w-full mb-3 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-900/70 transition cursor-pointer"
         >
-          <SiGithub color='white' size={26}/>
+          <SiGithub color="white" size={26} />
           <span>{githubLoading ? 'Signing in...' : 'Sign in with GitHub'}</span>
         </button>
 
