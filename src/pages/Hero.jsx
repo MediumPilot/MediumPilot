@@ -1,8 +1,15 @@
 /**
  * Hero Section Component
  *
- * Tightened flow card so the card width hugs the image with a small gap.
+ * This component displays the main hero section of the landing page.
+ * It contains the primary value proposition, call-to-action buttons,
+ * a centered quote and supporting lines, the flow diagram, and a preview card showing the product interface.
+ *
+ * @fileoverview Main hero section with value proposition, centered quote, flow image and CTAs
+ * @author MediumPilot Team
+ * @version 1.0.0
  */
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
