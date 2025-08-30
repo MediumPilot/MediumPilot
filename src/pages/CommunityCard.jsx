@@ -62,12 +62,15 @@ export default function CommunityCard({
       <div
         className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
         style={{
-          background: `radial-gradient(600px circle at ${50 + mousePosition.x * 30}% ${50 + mousePosition.y * 30
-            }%, rgba(120, 119, 198, 0.15), transparent 40%), 
-                      radial-gradient(400px circle at ${70 - mousePosition.x * 20}% ${30 - mousePosition.y * 20
-            }%, rgba(255, 119, 198, 0.1), transparent 40%),
-                      radial-gradient(300px circle at ${30 + mousePosition.x * 25}% ${70 + mousePosition.y * 25
-            }%, rgba(120, 219, 255, 0.1), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${50 + mousePosition.x * 30}% ${
+            50 + mousePosition.y * 30
+          }%, rgba(120, 119, 198, 0.15), transparent 40%), 
+                      radial-gradient(400px circle at ${70 - mousePosition.x * 20}% ${
+                        30 - mousePosition.y * 20
+                      }%, rgba(255, 119, 198, 0.1), transparent 40%),
+                      radial-gradient(300px circle at ${30 + mousePosition.x * 25}% ${
+                        70 + mousePosition.y * 25
+                      }%, rgba(120, 219, 255, 0.1), transparent 40%)`,
           filter: 'blur(40px)',
           transform: `translateZ(-10px) scale(1.1)`,
         }}
@@ -75,8 +78,9 @@ export default function CommunityCard({
 
       {/* Animated gradient border */}
       <div
-        className={`absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 ${isHovered ? 'animate-gradient-border' : ''
-          }`}
+        className={`absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 ${
+          isHovered ? 'animate-gradient-border' : ''
+        }`}
         style={{
           background:
             'linear-gradient(45deg, #ff6ec4, #7873f5, #4ade80, #fbbf24, #ff6ec4)',
@@ -135,9 +139,9 @@ export default function CommunityCard({
           }}
         >
           <div className="relative z-10">
-            <img 
-              src={img} 
-              alt="" 
+            <img
+              src={img}
+              alt=""
               className="pointer-events-none select-none"
               style={{
                 outline: 'none',
@@ -146,7 +150,7 @@ export default function CommunityCard({
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
                 MozUserSelect: 'none',
-                msUserSelect: 'none'
+                msUserSelect: 'none',
               }}
             />
           </div>

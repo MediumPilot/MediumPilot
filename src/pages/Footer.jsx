@@ -74,7 +74,7 @@ export default function Footer() {
           </a>
           {/* MediumPilot Logo */}
           <a
-            href="https://mediumpilot.vercel.app/" 
+            href="https://mediumpilot.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link flex items-center"
