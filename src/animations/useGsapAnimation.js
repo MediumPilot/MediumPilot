@@ -4,7 +4,7 @@ export function initAnimation() {
   return import('gsap/ScrollTrigger').then((module) => {
     gsap.registerPlugin(module.ScrollTrigger);
 
-    const useGsap = (elementRef, animation, delay = 0,start = 'top 85%') => {
+    const useGsap = (elementRef, animation, delay = 0, start = 'top 85%') => {
       if (elementRef.current) {
         gsap.fromTo(elementRef.current, animation.from, {
           ...animation.to,
@@ -17,6 +17,6 @@ export function initAnimation() {
         });
       }
     };
-    return useGsap
+    return useGsap;
   });
 }
