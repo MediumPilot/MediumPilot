@@ -13,6 +13,7 @@
 // src/pages/SignIn.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { SiGithub, SiReact } from '@icons-pack/react-simple-icons';
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
@@ -233,7 +234,7 @@ export default function SignIn() {
           disabled={githubLoading}
           className="flex justify-center items-center font-semibold gap-2 w-full mb-3 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-900/70 transition cursor-pointer"
         >
-          <img className="w-6" src={github} alt="github_logo" />
+          <SiGithub color='white' size={26}/>
           <span>{githubLoading ? 'Signing in...' : 'Sign in with GitHub'}</span>
         </button>
 
@@ -263,7 +264,7 @@ export default function SignIn() {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            Back to Landing
+            Go Home
           </button>
         </Link>
       </div>
