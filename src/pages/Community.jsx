@@ -75,7 +75,7 @@ export default function Community() {
             title="Contribute on GitHub"
             desc="Open issues, suggest features or submit PRs. We welcome contributors."
             btndesc="View on GitHub"
-            btnlink="https://github.com/Prajwal18-MD/MediumPilot"
+            btnlink="https://github.com/MediumPilot/MediumPilot"
             btncolor="#111827"
           />
 

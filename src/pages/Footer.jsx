@@ -57,7 +57,7 @@ export default function Footer() {
         {/* Footer links */}
         <div className="flex items-center gap-6">
           <a
-            href="https://github.com/Prajwal18-MD/MediumPilot"
+            href="https://github.com/MediumPilot/MediumPilot"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link text-sm font-medium text-slate-700"

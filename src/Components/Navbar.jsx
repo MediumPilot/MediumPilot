@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/mediumpilot.svg';
 
 // GitHub repository information for star count and links
-const GITHUB_OWNER = 'Prajwal18-MD';
+const GITHUB_OWNER = 'MediumPilot';
 const GITHUB_REPO = 'MediumPilot';
 
 /**
