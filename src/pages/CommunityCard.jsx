@@ -127,47 +127,28 @@ export default function CommunityCard({
           }}
         />
 
-        {/* Icon container with float animation */}
+        {/* Icon container - simple white background, no hover effects */}
         <div
-          className="relative w-16 h-16 flex items-center justify-center rounded-2xl mb-6 overflow-hidden
-                     transform transition-all duration-500 group-hover:scale-110"
+          className="relative w-16 h-16 flex items-center justify-center rounded-2xl mb-6"
           style={{
-            background: isHovered
-              ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-              : 'linear-gradient(135deg, #fff 0%, #fff 100%)',
+            background: '#ffffff',
           }}
         >
-          {/* Inner glow for icon */}
-          <div
-            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{
-              background:
-                'radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%)',
-            }}
-          />
-
-          {/* Rotating shimmer effect */}
-          <div
-            className={`absolute inset-0 opacity-0 group-hover:opacity-100 ${isHovered ? 'animate-rotate-shimmer' : ''
-              }`}
-            style={{
-              background:
-                'conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-              filter: 'blur(10px)',
-            }}
-          />
-
-          <div
-            className="text-3xl font-bold transition-all duration-500 relative z-10"
-            style={{
-              color: isHovered ? '#ffffff' : '#6366f1',
-              transform: isHovered ? 'scale(1.0)' : 'scale(1)',
-              filter: isHovered
-                ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))'
-                : 'none',
-            }}
-          >
-            <img src={img} alt="" />
+          <div className="relative z-10">
+            <img 
+              src={img} 
+              alt="" 
+              className="pointer-events-none select-none"
+              style={{
+                outline: 'none',
+                border: 'none',
+                boxShadow: 'none',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none'
+              }}
+            />
           </div>
         </div>
 
