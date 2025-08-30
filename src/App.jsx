@@ -12,7 +12,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-
+import { auth } from './firebase';
 
 // Import page components
 import Landing from './pages/Landing';
@@ -40,27 +40,27 @@ export default function App() {
    * Updates the user state when authentication changes and stops checking
    * once the initial auth state is determined.
    */
-  // useEffect(() => {
-  //   // Subscribe to authentication state changes
-  //   const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-  //     if (firebaseUser) {
-  //       // User is signed in - create user object with relevant info
-  //       setUser({
-  //         uid: firebaseUser.uid,
-  //         name: firebaseUser.displayName || firebaseUser.email,
-  //         email: firebaseUser.email,
-  //       });
-  //     } else {
-  //       // User is signed out
-  //       setUser(null);
-  //     }
-  //     // Authentication check is complete
-  //     setCheckingAuth(false);
-  //   });
+  useEffect(() => {
+    // Subscribe to authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // User is signed in - create user object with relevant info
+        setUser({
+          uid: firebaseUser.uid,
+          name: firebaseUser.displayName || firebaseUser.email,
+          email: firebaseUser.email,
+        });
+      } else {
+        // User is signed out
+        setUser(null);
+      }
+      // Authentication check is complete
+      setCheckingAuth(false);
+    });
 
-  //   // Cleanup function to unsubscribe from auth listener
-  //   return () => unsubscribe();
-  // }, []);
+    // Cleanup function to unsubscribe from auth listener
+    return () => unsubscribe();
+  }, []);
 
   /**
    * Protected Route Component
@@ -74,6 +74,9 @@ export default function App() {
    */
   function ProtectedRoute({ children }) {
     // Show nothing while checking authentication status
+    if (checkingAuth) return null; // or spinner
+    // If user is authenticated, render children, otherwise redirect to signin
+    return user ? children : <Navigate to="/signin" />;
   }
 
   return (
