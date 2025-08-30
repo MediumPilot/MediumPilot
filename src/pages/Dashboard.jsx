@@ -83,15 +83,7 @@ export default function Dashboard({ user }) {
     <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-lg">
         {/* Header with logo and sign out */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <div className="flex items-center mb-4 sm:mb-0">
-            <img
-              src={logo}
-              alt="MediumPilot Logo"
-              className="w-16 h-auto mr-3"
-            />
-            <h1 className="text-2xl font-bold">MediumPilot</h1>
-          </div>
+        <div className="flex  flex-col sm:flex-row justify-end items-center mb-6">
           <button
             onClick={() => signOut(auth)}
             className="text-red-500 hover:text-red-600 cursor-pointer"
