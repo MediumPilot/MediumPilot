@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import CanvasCursor from './Components/CanvasCursor.jsx';
 
 // Import page components
 import Landing from './pages/Landing';
@@ -80,22 +81,25 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      {/* Public landing page */}
-      <Route path="/" element={<Landing />} />
-      {/* Sign-in page */}
-      <Route path="/signin" element={<SignIn />} />
-      {/* Protected dashboard - only accessible when authenticated */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard user={user} />
-          </ProtectedRoute>
-        }
-      />
-      {/* Catch-all route - redirect to home page */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+    <div>
+      <CanvasCursor />
+      <Routes>
+        {/* Public landing page */}
+        <Route path="/" element={<Landing />} />
+        {/* Sign-in page */}
+        <Route path="/signin" element={<SignIn />} />
+        {/* Protected dashboard - only accessible when authenticated */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard user={user} />
+            </ProtectedRoute>
+          }
+        />
+        {/* Catch-all route - redirect to home page */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
   );
 }
