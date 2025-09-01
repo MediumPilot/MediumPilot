@@ -11,6 +11,7 @@
  */
 
 import React, { useState } from 'react';
+import useHandleMouseMove from '../hooks/useHandleMouseMove';
 
 /**
  * Feature Card Component
@@ -25,20 +26,13 @@ import React, { useState } from 'react';
  * @returns {JSX.Element} The feature card component
  */
 export default function FeatureCard({ title, desc, icon }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
+  const {
+    mousePosition,
+    handleMouseMove,
+    handleMouseLeave,
+    isHovered,
+    setIsHovered,
+  } = useHandleMouseMove();
 
   return (
     <div
