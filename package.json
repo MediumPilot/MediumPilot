@@ -16,6 +16,7 @@
     "@upstash/redis": "^1.35.3",
     "dotenv": "^17.2.1",
     "firebase": "^11.10.0",
+    "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "node-fetch": "^3.3.2",
     "react": "^19.1.0",

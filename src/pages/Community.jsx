@@ -17,15 +17,6 @@ import mediumLogo from '../assets/icons/medium.svg';
 import CommunityCard from './CommunityCard';
 
 /**
- * Opens a centered popup window
- *
- * Opens a new window with specified dimensions centered on the screen.
- * On mobile devices, opens in a new tab instead of a popup.
- *
- * @param {string} url - The URL to open in the popup
- */
-
-/**
  * Community Section Component
  *
  * Renders the community section with three cards for different community platforms:
@@ -41,9 +32,7 @@ export default function Community() {
   const communityRef = useRef(null);
 
   useEffect(() => {
-    // Dynamically import the GSAP ScrollTrigger animation module to enable
-    // scroll-triggered animations only when this component is mounted.
-    // This approach uses code-splitting to avoid loading extra JS for small devices.
+    // Dynamically import the GSAP ScrollTrigger animation module
     import('../animations/useGsapAnimation').then((mod) => {
       mod.initAnimation().then((applyGsap) => {
         applyGsap(communityRef, {
@@ -59,11 +48,11 @@ export default function Community() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold  tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide leading-snug bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-xl">
             Community
           </h2>
-          <p className="text-gray-600 mt-2">
-            Contribute, chat, and stay updated.
+          <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
+            Contribute, chat, and stay updated with our growing community.
           </p>
         </div>
 
