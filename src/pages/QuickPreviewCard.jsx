@@ -12,18 +12,14 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import useHandleMouseMove from '../hooks/useHandleMouseMove';
 
 export default function QuickPreviewCard() {
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
-    const y = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-    setRotate({ x, y });
-  };
-
-  const resetRotation = () => setRotate({ x: 0, y: 0 });
+  const {
+    mousePosition: rotate,
+    handleMouseMove,
+    handleMouseLeave: resetRotation,
+  } = useHandleMouseMove({ multiplier: 20 });
 
   return (
     <motion.div
