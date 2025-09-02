@@ -82,11 +82,9 @@ export default function Dashboard({ user }) {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full h-96 flex">
-        {/* Left Side - Login Form */}
+        {/* Left Side  */}
         <div className="w-1/2 h-full bg-gray-50 flex items-center justify-center p-8">
           <div className="w-full max-w-sm">
-            {/* Social Login Icons */}
-
             {/* Sign In Title */}
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
               DashBoard
@@ -105,6 +103,7 @@ export default function Dashboard({ user }) {
                 className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
               />
             </div>
+            {/* access token */}
             <div className="mb-4">
               <label className="block text-xs font-semibold text-gray-700 mb-1 tracking-wide">
                 LinkedIn Access Token
@@ -117,7 +116,7 @@ export default function Dashboard({ user }) {
                 className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
               />
             </div>
-            {/* Password Field */}
+            {/* Actor */}
             <div className="mb-4">
               <label className="block text-xs font-semibold text-gray-700 mb-1 tracking-wide">
                 LinkedIn Actor URN
@@ -131,7 +130,7 @@ export default function Dashboard({ user }) {
               />
             </div>
 
-            {/* Sign In Button */}
+            {/* submit button */}
             <button
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-md transition-colors mb-4"
