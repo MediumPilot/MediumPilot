@@ -80,69 +80,79 @@ export default function Dashboard({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
-      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-lg">
-        {/* Header with logo and sign out */}
-        <div className="flex  flex-col sm:flex-row justify-end items-center mb-6">
-          <button
-            onClick={() => signOut(auth)}
-            className="text-red-500 hover:text-red-600 cursor-pointer"
-          >
-            Sign Out
-          </button>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full h-96 flex">
+        {/* Left Side - Login Form */}
+        <div className="w-1/2 h-full bg-gray-50 flex items-center justify-center p-8">
+          <div className="w-full max-w-sm">
+            {/* Social Login Icons */}
+
+            {/* Sign In Title */}
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+              DashBoard
+            </h2>
+
+            {/* Username Field */}
+            <div className="mb-4">
+              <label className="block text-xs font-semibold text-gray-700 mb-1 tracking-wide">
+                Medium RSS URL
+              </label>
+              <input
+                value={rssUrl}
+                onChange={(e) => setRssUrl(e.target.value)}
+                required
+                placeholder="https://api.rss.example"
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-xs font-semibold text-gray-700 mb-1 tracking-wide">
+                LinkedIn Access Token
+              </label>
+              <input
+                value={liToken}
+                onChange={(e) => setLiToken(e.target.value)}
+                required
+                placeholder="Bearer abc123..."
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+              />
+            </div>
+            {/* Password Field */}
+            <div className="mb-4">
+              <label className="block text-xs font-semibold text-gray-700 mb-1 tracking-wide">
+                LinkedIn Actor URN
+              </label>
+              <input
+                value={liActor}
+                onChange={(e) => setLiActor(e.target.value)}
+                required
+                placeholder="urn:li:person:XXXXXX"
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+              />
+            </div>
+
+            {/* Sign In Button */}
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-md transition-colors mb-4"
+            >
+              Enable Auto-Share
+            </button>
+          </div>
         </div>
 
-        {/* Configuration form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Medium RSS URL input */}
-          <div>
-            <label className="block mb-1 font-medium">Medium RSS URL</label>
-            <input
-              value={rssUrl}
-              onChange={(e) => setRssUrl(e.target.value)}
-              required
-              placeholder="https://api.rss.example"
-              className="w-full p-3 border rounded-lg"
-            />
+        {/* Right Side - Welcome Section */}
+        <div className="w-1/2 h-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center text-white">
+          <div className="text-center px-8">
+            <h1 className="text-4xl font-bold mb-4">MediumPilot</h1>
+            <button
+              onClick={() => signOut(auth)}
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-500 font-medium py-3 px-8 rounded-full transition-colors"
+            >
+              Sign Out
+            </button>
           </div>
-
-          {/* LinkedIn Access Token input */}
-          <div>
-            <label className="block mb-1 font-medium">
-              LinkedIn Access Token
-            </label>
-            <input
-              value={liToken}
-              onChange={(e) => setLiToken(e.target.value)}
-              required
-              placeholder="Bearer abc123..."
-              className="w-full p-3 border rounded-lg"
-            />
-          </div>
-
-          {/* LinkedIn Actor URN input */}
-          <div>
-            <label className="block mb-1 font-medium">LinkedIn Actor URN</label>
-            <input
-              value={liActor}
-              onChange={(e) => setLiActor(e.target.value)}
-              required
-              placeholder="urn:li:person:XXXXXX"
-              className="w-full p-3 border rounded-lg"
-            />
-          </div>
-
-          {/* Submit button */}
-          <button
-            type="submit"
-            className="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold"
-          >
-            Enable Auto-Share
-          </button>
-
-          {/* Status message */}
-          {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
-        </form>
+        </div>
       </div>
     </div>
   );
