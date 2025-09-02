@@ -100,7 +100,7 @@ export default function Dashboard({ user }) {
                 onChange={(e) => setRssUrl(e.target.value)}
                 required
                 placeholder="https://api.rss.example"
-                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none placeholder-gray-500 text-sm"
               />
             </div>
             {/* access token */}
@@ -113,7 +113,7 @@ export default function Dashboard({ user }) {
                 onChange={(e) => setLiToken(e.target.value)}
                 required
                 placeholder="Bearer abc123..."
-                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none placeholder-gray-500 text-sm"
               />
             </div>
             {/* Actor */}
@@ -126,14 +126,14 @@ export default function Dashboard({ user }) {
                 onChange={(e) => setLiActor(e.target.value)}
                 required
                 placeholder="urn:li:person:XXXXXX"
-                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-blue-500 outline-none placeholder-gray-500 text-sm"
+                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none placeholder-gray-500 text-sm"
               />
             </div>
 
             {/* submit button */}
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-md transition-colors mb-4"
+              className="w-full bg-indigo-600 hover:bg-indigo-800 text-white font-medium py-2 rounded-md transition-colors mb-4"
             >
               Enable Auto-Share
             </button>
@@ -141,15 +141,19 @@ export default function Dashboard({ user }) {
         </div>
 
         {/* Right Side - Welcome Section */}
-        <div className="w-1/2 h-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center text-white">
+        <div className="w-1/2 h-full bg-gradient-to-br from-indigo-400 via-indigo-500 to-indigo-600 flex items-center justify-center text-white">
           <div className="text-center px-8">
             <h1 className="text-4xl font-bold mb-4">MediumPilot</h1>
             <button
               onClick={() => signOut(auth)}
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-500 font-medium py-3 px-8 rounded-full transition-colors"
+              className="border-2 border-white text-white hover:bg-white hover:text-indigo-600 font-medium py-3 px-8 rounded-full transition-colors"
             >
               Sign Out
             </button>
+            {/* Status message */}
+            {status && (
+              <p className="mt-4 text-center text-gray-700">{status}</p>
+            )}
           </div>
         </div>
       </div>
