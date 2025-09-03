@@ -13,22 +13,16 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import QuickPreviewCard from './QuickPreviewCard';
 import flow from '../assets/flow.png';
+import useHandleMouseMove from '../hooks/useHandleMouseMove';
 
 export default function Hero() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
+  const {
+    mousePosition,
+    isHovered,
+    setIsHovered,
+    handleMouseMove,
+    handleMouseLeave,
+  } = useHandleMouseMove();
 
   return (
     <section className="py-8 md:py-16">
