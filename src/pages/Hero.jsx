@@ -16,6 +16,7 @@ import flow from '../assets/flow.png';
 import useHandleMouseMove from '../hooks/useHandleMouseMove';
 
 export default function Hero() {
+
   const {
     mousePosition,
     isHovered,

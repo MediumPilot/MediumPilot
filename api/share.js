@@ -9,7 +9,7 @@
  *
  * - Sends plain-text (HTML stripped) up to CHAR_LIMIT (190000) to the summarizer.
  * - POSTs to the summarizer endpoint (default: https://summarizer-u8mc.onrender.com/summarize)
- *   with JSON { text, char_limit } and waits up to 10 seconds.
+ *   with JSON { text, char_limit } and waits up to 60 seconds.
  * - If the summarizer returns a JSON with a "summary" field, that text is
  *   used verbatim in the LinkedIn post.
  * - If the summarizer fails, times out, or does not return "summary", we
@@ -34,8 +34,8 @@ const SUMMARIZER_URL =
   'https://summarizer-u8mc.onrender.com/summarize';
 // char limit the user specified
 const CHAR_LIMIT = 190000;
-// 10 second timeout for the summarizer request
-const SUMMARIZER_TIMEOUT_MS = 10_000;
+// 60 second timeout for the summarizer request
+const SUMMARIZER_TIMEOUT_MS = 60_000;
 
 // -------------------- Category / Weekday Helpers --------------------
 
