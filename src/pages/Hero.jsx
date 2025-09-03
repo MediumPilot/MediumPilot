@@ -16,11 +16,14 @@ import flow from '../assets/flow.png';
 import useHandleMouseMove from '../hooks/useHandleMouseMove';
 
 export default function Hero() {
-   const {
-    mousePosition: rotate,
+
+  const {
+    mousePosition,
+    isHovered,
+    setIsHovered,
     handleMouseMove,
-    handleMouseLeave: resetRotation,
-  } = useHandleMouseMove({ multiplier: 15 });
+    handleMouseLeave,
+  } = useHandleMouseMove();
 
   return (
     <section className="py-8 md:py-16">
