@@ -15,6 +15,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 // Import global styles including Tailwind CSS
 import './index.css';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 /**
  * Initialize and render the React application
@@ -25,10 +27,13 @@ import './index.css';
 createRoot(document.getElementById('root')).render(
   // Strict mode helps identify potential problems during development
   <React.StrictMode>
-    {/* BrowserRouter provides routing functionality for the entire app */}
-    <BrowserRouter>
-      {/* Main application component */}
-      <App />
-    </BrowserRouter>
+    {/* Provider makes the Redux store available to all components */}
+    <Provider store={store}>
+      {/* BrowserRouter provides routing functionality for the entire app */}
+      <BrowserRouter>
+        {/* Main application component */}
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
