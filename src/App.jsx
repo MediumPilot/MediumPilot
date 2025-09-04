@@ -18,6 +18,8 @@ import { auth } from './firebase';
 import Landing from './pages/Landing';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
+import { useSelector } from 'react-redux';
+import { initAuthListener } from './store/actions/user.actions';
 
 /**
  * Main App component that handles authentication and routing
@@ -28,10 +30,8 @@ import Dashboard from './pages/Dashboard';
  * @returns {JSX.Element} The main application component
  */
 export default function App() {
-  // State for current authenticated user
-  const [user, setUser] = useState(null);
-  // State to track if authentication check is in progress
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  // State for current authenticated user and to track if authentication check is in progress
+  const { user, checkingAuth } = useSelector((state) => state.userModule);
 
   /**
    * Effect to listen for authentication state changes
@@ -41,25 +41,7 @@ export default function App() {
    * once the initial auth state is determined.
    */
   useEffect(() => {
-    // Subscribe to authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        // User is signed in - create user object with relevant info
-        setUser({
-          uid: firebaseUser.uid,
-          name: firebaseUser.displayName || firebaseUser.email,
-          email: firebaseUser.email,
-        });
-      } else {
-        // User is signed out
-        setUser(null);
-      }
-      // Authentication check is complete
-      setCheckingAuth(false);
-    });
-
-    // Cleanup function to unsubscribe from auth listener
-    return () => unsubscribe();
+    initAuthListener();
   }, []);
 
   /**
