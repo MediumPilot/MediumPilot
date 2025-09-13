@@ -24,6 +24,7 @@
 import Parser from 'rss-parser';
 import fetch from 'node-fetch';
 import { kv } from './kv.js';
+import { createXAuthHeader } from '../utils/xAuth.js'; // X AUTO-SHARE
 
 // 1. Initialize RSS parser
 const parser = new Parser();
@@ -162,6 +163,30 @@ function composePost(title, url, excerpt, hashtags) {
   let text = `${weekIntro} ${catIntro} "${title}"? 🚀\n\n${excerpt}...\n\n${url}\n\n${comment}`;
   if (hashtags && hashtags.length) text += `\n\n${hashtags.join(' ')}`;
   return text;
+}
+
+
+// Post a tweet via X API v2: X auto-share (used inside main handler)
+
+async function postToX(text, cfg) {
+  const url = 'https://api.twitter.com/2/tweets';
+  const body = { text };
+  const auth = createXAuthHeader(url, 'POST', body, cfg);
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: auth,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    console.warn('X post failed:', res.status, errText);
+  }
+  return res;
 }
 
 /**
@@ -349,7 +374,7 @@ export default async function handler(req, res) {
 
       const coverImage = entry.enclosure?.url || null;
 
-      // 4.6 Compose LinkedIn post text using the summary or fallback excerpt
+      // 4.6 Compose LinkedIn post text using the summary or fallback excerpt(we use this for X.com/twitter as well)
       const postText = composePost(entry.title, entry.link, excerpt, hashtags);
 
       // 4.7 Build payload expected by LinkedIn UGC API
@@ -388,6 +413,22 @@ export default async function handler(req, res) {
         const body = await postRes.text();
         throw new Error(`LinkedIn error ${postRes.status}: ${body}`);
       }
+
+      // X auto-share: post to X if enabled
+       if (
+         cfg.enableX === 'true' || cfg.enableX === true // handle string vs boolean
+       ) {
+         // ensure all creds exist
+         if (
+           cfg.xConsumerKey &&
+           cfg.xConsumerSecret &&
+           cfg.xAccessToken &&
+           cfg.xAccessTokenSecret
+         ) {
+           const tweetText = postText.slice(0, 275) + '…'; // ensure ≤280 chars(non-premium account limit)
+           await postToX(tweetText, cfg);
+         }
+       }
 
       // 4.9 Update last shared URL to prevent duplicates
       await kv.hset(`user:${uid}`, { lastUrl: entry.link });
