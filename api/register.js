@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     }
 
     // Extract and validate request body
-    const { uid, rssUrl, liToken, liActor } = req.body || {};
+    const { uid, rssUrl, liToken, liActor, xConsumerKey, xConsumerSecret, xAccessToken, xAccessTokenSecret} = req.body || {};
 
     // Validate user ID
     if (!uid) {
@@ -51,6 +51,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
+    //validate X credentials if toggle enabled
+    if (enableX) {
+      if (!xConsumerKey || !xConsumerSecret || !xAccessToken || !xAccessTokenSecret) {
+        return res
+          .status(400)
+          .json({ error: 'All X credentials are required!' });
+      }
+    }
+
     // Create Redis key for user data
     const key = `user:${uid}`;
     console.log('Storing data in Redis for', uid);
@@ -60,6 +69,11 @@ export default async function handler(req, res) {
       rssUrl, // Medium RSS feed URL
       liToken, // LinkedIn access token
       liActor, // LinkedIn actor URN
+      enableX: enableX || false,     // X toggle
+      xConsumerKey: xConsumerKey,
+      xConsumerSecret: xConsumerSecret,
+      xAccessToken: xAccessToken ,
+      xAccessTokenSecret: xAccessTokenSecret,
       lastUrl: '', // Track last shared URL to avoid duplicates
     });
 
